@@ -48,10 +48,10 @@ export const Sidebar = () => {
                     key={page.link} 
                     href={page.link} 
                     className={cn(
-                        "text-slate-100/40 text-sm group flex py-2 w-full justify-start font-light cursor-pointer rounded "
+                        "text-sm group flex py-2 w-full justify-start font-light cursor-pointer rounded "
                     )}>
-                        <div className="flex border-b border-slate-100/70 w-full pb-3 ">
-                                <p className="mt-1 text-lg font-normal hover:text-slate-100/90 duration-300">{page.title}</p>
+                        <div className="flex border-b border-primary/70 w-full pb-3 ">
+                                <p className="mt-1 text-lg font-normal hover:text-primary/90 duration-300">{page.title}</p>
                         </div>
                     </Link>
                 ))}
