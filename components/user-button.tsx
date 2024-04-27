@@ -13,7 +13,7 @@ import { CreditCard, Github, LogOut, Settings, Twitter, UserIcon, Youtube } from
 import Link from "next/link"
 
 
-export default function UserButton() {
+export const UserButton = () => {
     const userButtonItems = [
         {
             label: "Profile",
