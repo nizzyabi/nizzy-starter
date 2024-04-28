@@ -6,8 +6,8 @@ import { MobileSidebar } from "@/components/mobile-sidebar";
 
 export const navPages = [
     {
-        title: "About",
-        link: "/about",
+        title: "Dashboard",
+        link: "/dashboard",
     },
     {
         title: "Services",
@@ -22,7 +22,7 @@ export const navPages = [
 export const Navbar = () => {
     
     return (
-        <nav className="fixed top-0 w-full z-50 transition">
+        <nav className="top-0 w-full z-50 transition pb-20">
             <div className="max-w-[1600px] mx-auto px-4 py-2">
                 <div className="flex justify-between items-center">
                     <MobileSidebar />
