@@ -37,7 +37,7 @@ export default function DashboardPage() {
                     </section>
                     <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
                         <BarChart />
-                        <LineGraph />
+                        <LineGraph  />
                     </section>
                 </div>
             </div>
