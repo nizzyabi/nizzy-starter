@@ -13,7 +13,7 @@ export const DashboardCard = ({
   description
 }: DashboardCardProps) => {
     return (
-        <div className="border border-opacity-10 flex w-full flex-col gap-3 rounded-[5px] p-5">
+        <div className="bg-secondary/90 shadow flex w-full flex-col gap-3 rounded-[5px] p-5">
             {/* Label & Icon */}
             <section className="flex justify-between gap-2">
                 <p className="text-sm">{label}</p>                
