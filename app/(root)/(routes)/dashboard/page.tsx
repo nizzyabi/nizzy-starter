@@ -1,5 +1,7 @@
 import { Check, CreditCard, DollarSign, PersonStanding } from "lucide-react";
 import { DashboardCard } from "./_components/dashboard-card";
+import BarChart from "./_components/barchart";
+import LineGraph from "./_components/line-graph";
 
 export default function DashboardPage() {
     return (
@@ -32,6 +34,10 @@ export default function DashboardPage() {
                             amount="+40"
                             description="From the last month"
                         />
+                    </section>
+                    <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
+                        <BarChart />
+                        <LineGraph />
                     </section>
                 </div>
             </div>
