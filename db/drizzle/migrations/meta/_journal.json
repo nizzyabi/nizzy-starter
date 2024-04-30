@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1714420195061,
+      "tag": "0000_jazzy_mandroid",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1714424056403,
+      "tag": "0001_cultured_garia",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1714487641133,
+      "tag": "0002_busy_exodus",
+      "breakpoints": true
+    }
+  ]
+}
