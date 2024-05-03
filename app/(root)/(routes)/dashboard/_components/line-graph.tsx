@@ -1,5 +1,4 @@
 "use client";
-
 import { useTheme } from "next-themes";
 import { 
     LineChart, 
@@ -9,9 +8,9 @@ import {
     CartesianGrid, 
     ResponsiveContainer 
 } from 'recharts';
-
 import { light_theme } from "@/lib/theme-constant";
 import { User } from "lucide-react";
+
 // TODO: Make it functional 
 const numberOfUsersData = [
     {
@@ -67,7 +66,7 @@ export default function LineGraph() {
     const { theme }  = useTheme()
     return (
         <div className="bg-secondary/90 shadow flex w-full flex-col gap-3 rounded-[5px] p-5">
-            <section className="flex justify-between gap-2 text-slate-100 pb-2">
+            <section className="flex justify-between gap-2 pb-2">
                 <p>Users Data</p>
                 <User className="h-4 w-4" />
             </section>

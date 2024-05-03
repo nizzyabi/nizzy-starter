@@ -10,7 +10,7 @@ export const MobileSidebar = () => {
             <SheetTrigger className="sm:hidden pr-4 text-primary">
                 <Menu className="h-8 w-8 hover:text-slate-100/50 duration-300"/>
             </SheetTrigger>
-            <SheetContent side="left" className="p-6 border-none w-80">
+            <SheetContent side="left" className="p-6 border-none w-80 bg-secondary">
                <Sidebar />
             </SheetContent>
         </Sheet>
