@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Nizzy-Starter",
-  description: "The best SaaS starter kit on the web 🚀",
+  description: "The best SaaS starter kit on the web 🌎 🚀",
 };
 
 export default function RootLayout({
