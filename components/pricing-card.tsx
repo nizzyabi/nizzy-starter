@@ -33,7 +33,7 @@ export const PricingCard = () => {
             <div className="max-w-6xl px-4 mx-auto sm:px-6">
                 <div className="py-12 md:py-20">
                     {/* Title */}
-                    <div className="max-w-3xl pb-12 mx-auto text-center md:pb-20">
+                    <div className="max-w-3xl pb-12 mx-auto text-center">
                         <h2 className="pb-4 text-4xl font-extrabold text-primary">
                             Pricing Plans
                         </h2>
@@ -63,11 +63,7 @@ export const PricingCard = () => {
                                                     {tier.features.map((feature) => (
                                                         <li key={feature} className="flex gap-x-3">
                                                             <Check
-                                                                className={cn("h-6 w-5 flex-none", {
-                                                                "text-emerald-400": i === 0,
-                                                                "text-yellow-300": i === 1,
-                                                                "text-rose-500": i === 2,
-                                                                })}
+                                                                className="h-6 w-5 text-emerald-400 flex-none"
                                                                 aria-hidden="true"
                                                             />
                                                                 {feature}
