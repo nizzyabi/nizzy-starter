@@ -5,25 +5,25 @@ import Link from "next/link";
 {/* Update Tiers Here*/}
 const tiers = [
     {
-      name: "Free",
+      name: "Offer 1",
       price: 0,
       description: "Free forever, for teams just getting started",
-      features: ["50k Events per month", "10 Alerts", "Custom Dashboards", "Priority Support", "10,000 Users", "Unlimited Integrations", "Max Retention" ],
-      cta: "Get Started for Free",
+      features: ["Put", "Product", "Boneses", "Here"],
+      cta: "Call To Action",
     },
     {
-      name: "Pro",
+      name: "Offer 2",
       price: 20,
       description: "For larger teams with increased usage",
-      features: ["50k Events per month", "10 Alerts", "Custom Dashboards", "Priority Support", "10,000 Users", "Unlimited Integrations", "Max Retention" ],
-      cta: "Try Pro for 14 days",
+      features: ["Put", "Product", "Boneses", "Here"],
+      cta: "Call To Action",
     },
     {
-      name: "Enterprise",
+      name: "Offer 3",
       price: 50,
       description: "For businesses with custom needs",
-      features: ["50k Events per month", "10 Alerts", "Custom Dashboards", "Priority Support", "10,000 Users", "Unlimited Integrations", "Max Retention" ],
-      cta: "Scale Up",
+      features: ["Put", "Product", "Boneses", "Here"],
+      cta: "Call To Action",
     },
 ];
   
