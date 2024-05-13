@@ -20,7 +20,7 @@ export const BackButton = ({
             asChild
         >
             <Link href={href}>
-                <p className="underline">{label}</p>
+                <p className="hover:underline">{label}</p>
             </Link>
         </Button>
     )
