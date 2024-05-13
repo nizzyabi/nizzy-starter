@@ -42,7 +42,7 @@ export const LoginForm = () => {
         }
     })
 
-    const onSubit = (values: z.infer<typeof LoginSchema>) => {
+    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
         setError('');
         setSuccess('');
         startTransition(() => {
@@ -60,7 +60,7 @@ export const LoginForm = () => {
             showSocial
         >
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubit)} className="space-y-1 w-full">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 w-full">
                     <div className="space-y-2">
                         <FormField 
                             control={form.control}
