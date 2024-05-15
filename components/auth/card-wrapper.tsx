@@ -3,7 +3,7 @@
 import { Header } from "@/components/auth/header"
 import { Social } from "@/components/auth/social"
 import { BackButton } from "./back-button"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { Card, CardFooter, CardHeader } from "@/components/ui/card"
 
 interface CardWrapperProps {
     children: React.ReactNode
