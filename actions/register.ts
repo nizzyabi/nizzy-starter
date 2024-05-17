@@ -3,6 +3,9 @@ import * as z from "zod";
 import { RegisterSchema } from "@/schemas"
 import bcrypt from "bcrypt";
 import { db } from "@/lib/db";
+import { getUserByEmail } from "@/data/user";
+import { generateVerificationToken } from "@/lib/tokens";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
@@ -15,11 +18,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     const { name, email, password } = validatedFields.data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const exisitingUser = await db.user.findUnique({
-        where: {
-            email,
-        }
-    })
+    const exisitingUser = await getUserByEmail(email)
 
     if (exisitingUser) {
         return { error: "Email already exists!" }
@@ -32,6 +31,13 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
             password: hashedPassword
         }
     })
+
+    const verificationToken = await generateVerificationToken(email);
+
+    await sendVerificationEmail(
+        verificationToken.email,
+        verificationToken.token,
+    );
 
     return { success: "Email sent!"}
 
