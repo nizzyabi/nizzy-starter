@@ -37,21 +37,21 @@ export const LoginForm = () => {
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
-            email: '',
-            password: ''
+          email: '',
+          password: ''
         }
-    })
-
-    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-        setError('');
-        setSuccess('');
+      })
+    
+      const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+        setError('')
+        setSuccess('')
         startTransition(() => {
-            login(values).then((data) => {
-                setError('');
-                setSuccess('');
-            })
+          login(values).then((data) => {
+            setError(data?.error)
+            setSuccess(data?.success)
+          })
         })
-    }
+      }
     return (
         <CardWrapper
             headerTitle="Login"
