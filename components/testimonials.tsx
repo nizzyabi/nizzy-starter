@@ -1,7 +1,7 @@
 'use client'
 
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
-import { Avatar, AvatarImage } from './ui/avatar'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 
 
 

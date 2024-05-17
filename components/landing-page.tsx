@@ -1,5 +1,5 @@
-import { PricingCard } from "./pricing-card"
-import { Testimonials } from "./testimonials"
+import { PricingCard } from "@/components/pricing-card"
+import { Testimonials } from "@/components/testimonials"
 
 export const Landing = () => {
     return (
