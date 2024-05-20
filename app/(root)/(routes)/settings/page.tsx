@@ -1,11 +1,13 @@
-import { auth } from "@/auth"
+'use client'
+
 import { useCurrentUser } from "@/hooks/use-current-user"
 
+
 const SettingsPage =  () => {
-    const user = useCurrentUser()
+    const session = useCurrentUser()
     return (
         <div>
-            
+            {session?.name}
         </div>
     )
 }
