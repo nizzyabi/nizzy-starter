@@ -9,9 +9,12 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import { useCurrentUser } from "@/hooks/use-current-user"
 import { CreditCard, Github, LogOut, Settings, Twitter, UserIcon, Youtube } from "lucide-react"
 import Link from "next/link"
-
+import { logout } from '@/actions/logout'
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
 
 export const UserButton = () => {
     const userButtonItems = [
@@ -31,14 +34,42 @@ export const UserButton = () => {
             icon: Settings
         }
     ]
-    
+    const router = useRouter();
+    const session = useCurrentUser();
+    const onClick = () => {
+        router.push('/register')
+      }
+    const Logout = () => {
+        logout();
+        router.push('/login')
+    }
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                {/* User Avatar / Logo */}
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>   
+       <>
+        {!session ? (
+            <div>
+                <Link href='/register' className='flex md:hidden items-center justify-center  rounded-lg cursor-pointer transition duration-300 hover:bg-white/5 px-2 py-2'>
+                    <LogOut className='text-slate-100 h-5.5 w-5'/>
+                </Link>
+          
+                <Button
+                    type="submit"
+                    onClick={onClick}
+                    className="px-5 rounded-[5px] hidden md:flex"
+                >
+                    Sign Up
+                </Button>
+            </div>
+        ):(
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    {/* User Avatar / Logo */}
+                    <Avatar className="cursor-pointer">
+                    <AvatarImage 
+                        src={session.image ? session.image : ''} 
+                        alt="pfp" 
+                        
+                    />
+                    <AvatarFallback className="bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500"></AvatarFallback>   
                 </Avatar>
             </DropdownMenuTrigger>
             {/* Content */}
@@ -78,11 +109,14 @@ export const UserButton = () => {
                 </DropdownMenuItem>
                 {/* Logout Button */}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={Logout} className="cursor-pointer">
                     <LogOut className="mr-2 mt-0.5 h-4 w-4"/>
                     <span>Logout</span>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+        )
+       }
+       </>
     )
 }

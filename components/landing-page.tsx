@@ -3,7 +3,6 @@ import { Testimonials } from "@/components/testimonials"
 import { Header } from "@/components/header"
 
 export const Landing = () => {
-
     return (
         <div>
             <Header />
