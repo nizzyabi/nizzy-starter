@@ -39,6 +39,7 @@ export const RegisterForm = () => {
             }
             if (data?.success) {
                 toast.success(data.success)
+                form.reset({ email: '', password: '', name: '' })
             }
           })
         })

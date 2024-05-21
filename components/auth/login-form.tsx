@@ -16,7 +16,7 @@ import { CardWrapper } from "@/components/auth/card-wrapper"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { useState, useTransition } from "react"
+import { useEffect, useRef, useTransition } from "react"
 import { login } from "@/actions/login"
 import toast from "react-hot-toast"
 export const LoginForm = () => {
@@ -27,9 +27,14 @@ export const LoginForm = () => {
       : ''
 
     const [isPending, startTransition] = useTransition()
-    const [error, setError] = useState<string | undefined>('')
-    const [success, setSuccess] = useState<string | undefined>('')
-    
+    const hasDisplayedError = useRef(false)
+    useEffect(() => {
+    if (urlError && !hasDisplayedError.current) {
+      toast.error(urlError)
+      hasDisplayedError.current = true
+    }
+    }, [urlError])
+
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -39,8 +44,7 @@ export const LoginForm = () => {
       })
     
       const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-        setError('')
-        setSuccess('')
+        
         startTransition(() => {
           login(values).then((data) => {
             if (data?.error) {
@@ -48,6 +52,7 @@ export const LoginForm = () => {
             }
             if (data?.success) {
                 toast.success(data.success)
+                form.reset({ email: '', password: ''})
             }
           })
         })
