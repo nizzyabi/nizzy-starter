@@ -4,7 +4,7 @@ import { Header } from "@/components/header"
 
 export const Landing = () => {
     return (
-        <div>
+        <div className="space-y-20">
             <Header />
             <PricingCard />
             <Testimonials />
