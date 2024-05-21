@@ -1,7 +1,5 @@
-import { PlayIcon, RocketIcon, Sparkles } from "lucide-react"
-import { Button } from "./ui/button"
+import { Sparkles } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
 
 export const Header = () => {
     return (

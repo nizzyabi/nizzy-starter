@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider"
 import { Navbar } from "@/components/navbar";
-import { Toaster } from "@/components/ui/toaster";
+import { ToastProvider } from '@/components/providers/toaster-provider'
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 
@@ -31,8 +31,8 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
+          <ToastProvider />
           {children}
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>

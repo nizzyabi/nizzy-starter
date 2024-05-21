@@ -13,16 +13,13 @@ import {
 import { RegisterSchema } from "@/schemas"
 import { Input } from "@/components/ui/input"
 import { CardWrapper } from "@/components/auth/card-wrapper"
-import { FormError } from "@/components/auth/form-error"
-import { FormSuccess } from "@/components/auth/form-success"
 import { Button } from "@/components/ui/button"
-import { useState, useTransition } from "react"
+import { useTransition } from "react"
 import { register } from "@/actions/register"
-
+import toast from 'react-hot-toast'
 export const RegisterForm = () => {
     const [isPending, startTransition] = useTransition()
-    const [error, setError] = useState<string | undefined>('')
-    const [success, setSuccess] = useState<string | undefined>('')
+   
   
     const form = useForm<z.infer<typeof RegisterSchema>>({
       resolver: zodResolver(RegisterSchema),
@@ -34,12 +31,15 @@ export const RegisterForm = () => {
     })
 
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-        setError('')
-        setSuccess('')
+        
         startTransition(() => {
           register(values).then((data) => {
-            setError(data.error)
-            setSuccess(data.success)
+            if (data?.error) {
+                toast.error(data.error)
+            }
+            if (data?.success) {
+                toast.success(data.success)
+            }
           })
         })
       }
@@ -114,9 +114,6 @@ export const RegisterForm = () => {
                     />
                     <div></div>    
                 </div>
-                <FormError message={error} />
-                <FormSuccess message={success} />
-            
                 <Button 
                     className="w-full"
                     disabled={isPending}

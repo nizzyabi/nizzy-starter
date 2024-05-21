@@ -47,8 +47,8 @@ export const UserButton = () => {
        <>
         {!session ? (
             <div>
-                <Link href='/register' className='flex md:hidden items-center justify-center  rounded-lg cursor-pointer transition duration-300 hover:bg-white/5 px-2 py-2'>
-                    <LogOut className='text-slate-100 h-5.5 w-5'/>
+                <Link href='/register' className='flex md:hidden items-center justify-center  rounded-lg cursor-pointer transition duration-300 hover:bg-primary/10 px-2 py-2'>
+                    <LogOut className='h-5.5 w-5'/>
                 </Link>
           
                 <Button

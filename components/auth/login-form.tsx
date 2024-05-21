@@ -1,5 +1,4 @@
 'use client'
-
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -13,16 +12,13 @@ import {
   } from "@/components/ui/form"
 import { LoginSchema } from "@/schemas"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { CardWrapper } from "@/components/auth/card-wrapper"
-import { FormError } from "@/components/auth/form-error"
-import { FormSuccess } from "@/components/auth/form-success"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useState, useTransition } from "react"
 import { login } from "@/actions/login"
-
+import toast from "react-hot-toast"
 export const LoginForm = () => {
     // Error handling
     const searchParams = useSearchParams()
@@ -47,8 +43,12 @@ export const LoginForm = () => {
         setSuccess('')
         startTransition(() => {
           login(values).then((data) => {
-            setError(data?.error)
-            setSuccess(data?.success)
+            if (data?.error) {
+                toast.error(data.error)
+            }
+            if (data?.success) {
+                toast.success(data.success)
+            }
           })
         })
       }
@@ -102,10 +102,7 @@ export const LoginForm = () => {
                             )}
                         />    
                     </div>
-                    <FormError message={error || urlError} />
-                    <FormSuccess message={success} />
-                
-                
+                    {urlError && toast.error(urlError)}
                     <Button 
                         className="w-full"
                         disabled={isPending}
