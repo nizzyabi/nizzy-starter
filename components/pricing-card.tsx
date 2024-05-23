@@ -1,90 +1,81 @@
-import { cn } from "@/lib/utils";
-import { ArrowRight, Check } from "lucide-react";
-import Link from "next/link";
+import { Check, Sparkle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-{/* Update Tiers Here*/}
+// Update Tiers Here
 const tiers = [
-    {
-      name: "Offer 1",
-      price: 0,
-      description: "Free forever, for teams just getting started",
-      features: ["Put", "Product", "Boneses", "Here"],
-      cta: "Call To Action",
-    },
-    {
-      name: "Offer 2",
-      price: 20,
-      description: "For larger teams with increased usage",
-      features: ["Put", "Product", "Boneses", "Here"],
-      cta: "Call To Action",
-    },
-    {
-      name: "Offer 3",
-      price: 50,
-      description: "For businesses with custom needs",
-      features: ["Put", "Product", "Boneses", "Here"],
-      cta: "Call To Action",
-    },
+  {
+    name: "Basic",
+    price: 29,
+    description: "Free forever, for teams just getting started",
+    features: ["720p Video Rendering", "2GB Cloud Storage", "Basic Video Templates"],
+    cta: "Get Started",
+    popular: false,
+  },
+  {
+    name: "Pro",
+    price: 59,
+    description: "For larger teams with increased usage",
+    features: ["1080p Video Rendering", "10GB Cloud Storage", "Premium Video Templates", "Collaboration Tools"],
+    cta: "Get Started",
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: 99,
+    description: "For businesses with custom needs",
+    features: ["4K Video Rendering", "Unlimited Cloud Storage", "Custom Video Templates", "Advanced Collaboration Tools", "Dedicated Support"],
+    cta: "Get Started",
+    popular: false,
+  },
 ];
-  
+
 export const PricingCard = () => {
-    return (
-        <section className="relative">
-            <div className="max-w-6xl px-4 mx-auto sm:px-6">
-                <div className="py-12 md:py-20">
-                    {/* Title */}
-                    <div className="max-w-3xl pb-12 mx-auto text-center">
-                        <h2 className="pb-4 text-4xl font-extrabold text-primary">
-                            Pricing Plans
-                        </h2>
-                    </div>
-                    {/* Cards */}
-                    <div className="h-full grid gap-6 md:grid-cols-12 group">
-                        {tiers.map((tier, i) => (
-                            <div
-                                key={tier.name}
-                                className="h-full md:col-span-6 lg:col-span-4 group/item"
-                                data-aos="fade-down"
-                            >
-                                <div>
-                                    <div className="relative h-full bg-secondary border border-primary/20 rounded-[5px] z-20 overflow-hidden">
-                                        <div className="flex flex-col">
-                                            <div className="p-8">
-                                                <h3 id={tier.name} className="text-lg font-semibold leading-8 text-primary">
-                                                    {tier.name}
-                                                </h3>
-                                                <h3 className="inline-flex items-baseline pb-1 mt-6 font-bold text-primary">
-                                                    <span className="text-4xl">${tier.price}</span>
-                                                </h3>
-                                                <p className="mt-4 text-sm leading-6 text-primary/40">
-                                                    {tier.description}
-                                                </p>
-                                                <ul role="list" className="mt-8 text-sm space-y-3 leading-6 text-primary">
-                                                    {tier.features.map((feature) => (
-                                                        <li key={feature} className="flex gap-x-3">
-                                                            <Check
-                                                                className="h-6 w-5 text-emerald-400 flex-none"
-                                                                aria-hidden="true"
-                                                            />
-                                                                {feature}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                                <Link
-                                                    className="mt-16 w-full justify-center flex items-center whitespace-nowrap transition duration-150 ease-in-out font-medium rounded px-4 py-1.5 group text-secondary bg-primary"
-                                                    href="/overview"
-                                                >
-                                                    Get Started{" "} 
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
+  return (
+    <div>
+        {/* Title */}
+        <div className="max-w-3xl mx-auto text-center">
+            <h2 className="pb-4 text-4xl font-extrabold text-primary">
+                Pricing
+            </h2>
+        </div>
+        <section className="w-full flex items-center justify-center">
+            <div className="container px-4 md:px-6 ">
+                {/* Pricing Card Display */}
+                <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
+                    {tiers.map((tier) => (
+                        <div key={tier.name} className={`relative flex flex-col p-6 shadow-lg rounded-lg  justify-between border bg-secondary ${tier.popular ? 'border-purple-500' : 'border-primary/20 bg-secondary'}`}>
+                            {tier.popular && (
+                                <div className="bg-secondary px-3 py-1 text-sm text-white bg-gradient-to-r from-pink-500 to-purple-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                    Popular
                                 </div>
+                            )}
+                            {/* Pricing */}
+                            <div>
+                                <h3 className="text-2xl font-bold text-center">{tier.name}</h3>
+                                <div className="mt-4 text-center text-primary/60">
+                                    <span className="text-4xl font-bold">${tier.price}</span>/ month
+                                </div>
+                                <ul className="mt-4 space-y-2">
+                                    {tier.features.map((feature, index) => (
+                                        <li key={index} className="flex items-center">
+                                        <Check className="text-secondary text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-                        ))}
-                    </div>
+                            {/* Button */}
+                            <div className="mt-6">
+                                <Button className={`w-full flex ${tier.popular ? 'bg-gradient-to-r from-pink-500 to-purple-500' : ''}`}>
+                                    {tier.cta}
+                                    <Sparkle className="ml-1 h-5 w-5"/>
+                                </Button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
-    )
-    }
+    </div>
+  );
+};

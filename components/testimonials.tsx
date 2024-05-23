@@ -3,8 +3,6 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 
-
-
 export const Testimonials = () => {
     // Add or remove testimonials here
     const testimonials = [

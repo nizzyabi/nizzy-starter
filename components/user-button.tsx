@@ -15,6 +15,7 @@ import Link from "next/link"
 import { logout } from '@/actions/logout'
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { signOut } from "next-auth/react"
 
 export const UserButton = () => {
     const userButtonItems = [
@@ -40,7 +41,7 @@ export const UserButton = () => {
         router.push('/register')
       }
     const Logout = () => {
-        logout();
+        signOut();
         router.push('/login')
     }
     return (
@@ -56,7 +57,7 @@ export const UserButton = () => {
                     onClick={onClick}
                     className="px-5 rounded-[5px] hidden md:flex"
                 >
-                    Sign Up
+                    Get Started
                 </Button>
             </div>
         ):(

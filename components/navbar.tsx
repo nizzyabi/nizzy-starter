@@ -10,12 +10,12 @@ export const navPages = [
         link: "/dashboard",
     },
     {
-        title: "Services",
-        link: "/services",
+        title: "Pricing",
+        link: "#pricing",
     },
     {
         title: "Items",
-        link: "/items",
+        link: "#items",
     },
 ]
 
