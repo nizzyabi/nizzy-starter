@@ -67,25 +67,14 @@ export const Sidebar = () => {
                 <p className="font-bold pt-1 ml-1">Nizzy Starter Kit</p>
             </div>
 
-            <div className=" pt-3">
+            <div className=" pt-8">
                 <div className="space-y-4">
-                    {!session ? (
+                    {!session && (
                         <Link href="/login" className="group flex py-2 w-full justify-start font-light cursor-pointer">
                             <div className="flex w-full pb-3">
                                 <p className="mt-1 font-medium ">Sign Up</p>
                             </div>
                         </Link>
-                    ) : (
-                        <div className="flex">
-                            <Avatar className="h-8 w-8 mr-1">
-                                <AvatarImage 
-                                    src={session?.image ? session.image : ''} 
-                                    alt="pfp"  
-                                />
-                                <AvatarFallback className="bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500"/>
-                            </Avatar>
-                            <p className="pt-1 font-medium">Welcome, {session?.name}</p>
-                        </div>
                     )}
                     <div className="ml-2">
                         <h1 className="font-semibold">Main</h1>
@@ -118,9 +107,9 @@ export const Sidebar = () => {
                         ))}
                     </div>
                     {session && (
-                        <Link href="/login" className="group flex py-2 w-full justify-start  cursor-pointer rounded">
+                        <Link href="/login" className="group flex py-2 w-full justify-start  cursor-pointer rounded ml-2">
                             <div className="flex  w-full pb-3" onClick={Logout}>
-                                <p className="mt-1 font-normal">Logout</p>
+                                <p className="mt-1 font-semibold">Logout</p>
                             </div>
                         </Link>
                     )}
