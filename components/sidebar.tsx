@@ -20,8 +20,8 @@ const sidebarPages = [
     },
     {
         
-        link: "/services",
-        title: "Services",
+        link: "/purchases",
+        title: "Purchases",
     },
     {
         link: "/settings",
