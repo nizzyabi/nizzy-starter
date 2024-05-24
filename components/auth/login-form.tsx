@@ -15,11 +15,12 @@ import { Input } from "@/components/ui/input"
 import { CardWrapper } from "@/components/auth/card-wrapper"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useRef, useTransition } from "react"
 import { login } from "@/actions/login"
 import toast from "react-hot-toast"
 export const LoginForm = () => {
+    const router = useRouter()
     // Error handling
     const searchParams = useSearchParams()
     const urlError = searchParams.get('error') === 'OAuthAccountNotLinked'
@@ -53,6 +54,8 @@ export const LoginForm = () => {
             if (data?.success) {
                 toast.success(data.success)
                 form.reset({ email: '', password: ''})
+                router.push("/")
+                router.refresh()
             }
           })
         })
