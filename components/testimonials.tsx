@@ -71,13 +71,13 @@ export const Testimonials = () => {
     return (
         <div>
             {/* Section Title */}
-            <div className="max-w-3xl pb-12 mx-auto text-center">
+            <div className="max-w-3xl mx-auto text-center">
                 <h2 className="pb-4 text-4xl font-extrabold text-primary">
                     Testimonials
                 </h2>
             </div>
             {/* Testimonials Card*/}
-            <div className='flex items-center justify-center'>
+            <div className='flex items-center justify-center mt-4'>
                 <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xs:mx-12 sm:mx-12 md:mx-40'>
                     {testimonials.map((testimonial) => (
                         <Card key={testimonial.name} className="py-4 px-0 m-3 bg-secondary border border-primary/20 rounded-[5px]">
