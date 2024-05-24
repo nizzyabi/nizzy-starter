@@ -107,7 +107,6 @@ export const LoginForm = () => {
                             )}
                         />    
                     </div>
-                    {urlError && toast.error(urlError)}
                     <Button 
                         className="w-full"
                         disabled={isPending}
