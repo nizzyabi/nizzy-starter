@@ -44,9 +44,6 @@ export const UserButton = () => {
         signOut();
         router.push('/login')
     }
-    if (status === "loading") {
-        return <div>Loading...</div>;
-    }
     return (
        <>
         {!session ? (

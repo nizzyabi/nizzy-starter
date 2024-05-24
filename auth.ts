@@ -27,7 +27,7 @@ export const{
       })
     }
   },
-  // Callbacks allow us to customuzie the uth process such as who has access to what, get ID, and block users.
+  // Callbacks allow us to customuzie the auth process such as who has access to what, get ID, and block users.
   callbacks: {
     // sign in
     async signIn({ user, account}) {
