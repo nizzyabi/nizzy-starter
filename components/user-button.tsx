@@ -10,7 +10,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { useCurrentUser } from "@/hooks/use-current-user"
-import { CreditCard, Github, LogOut, Settings, Twitter, UserIcon, Youtube } from "lucide-react"
+import { Book, CreditCard, Github, LayoutDashboard, LogOut, Settings, Twitter, Youtube } from "lucide-react"
 import Link from "next/link"
 import { logout } from '@/actions/logout'
 import { useRouter } from "next/navigation"
@@ -20,12 +20,17 @@ import { signOut } from "next-auth/react"
 export const UserButton = () => {
     const userButtonItems = [
         {
-            label: "Profile",
+            label: "Dashboard",
             href: "/profile",
-            icon: UserIcon
+            icon: LayoutDashboard
         },
         {
-            label: "Payments",
+            label: 'Docs',
+            href: '/docs',
+            icon: Book,
+        },
+        {
+            label: "Billing",
             href: "/payments",
             icon: CreditCard
         },
@@ -74,8 +79,9 @@ export const UserButton = () => {
                 </Avatar>
             </DropdownMenuTrigger>
             {/* Content */}
-            <DropdownMenuContent className="w-40">
-                <DropdownMenuLabel>Account</DropdownMenuLabel>
+            <DropdownMenuContent className="w-48">
+                <DropdownMenuLabel className="py-0 pt-1">{session?.name}</DropdownMenuLabel>
+                <DropdownMenuLabel className="opacity-70 text-sm font-normal">{session?.email}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {/* Main Icons */}
                 <DropdownMenuGroup>
@@ -88,31 +94,11 @@ export const UserButton = () => {
                         </DropdownMenuItem>
                     ))}
                 </DropdownMenuGroup>
-                {/* Socials */}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <Link className="flex" href='https://yourgithublink.com'>
-                        <Github className="mr-2 mt-0.5 h-4 w-4"/>
-                        <span>GitHub</span>
-                    </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Link className="flex" href='https://youryoutubelink.com'>
-                        <Youtube className="mr-2 mt-0.5 h-4 w-4"/>
-                        <span>Youtube</span>
-                    </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Link className="flex" href='https://yourtwitterlink.com'>
-                        <Twitter className="mr-2 mt-0.5 h-4 w-4"/>
-                        <span>Twitter</span>
-                    </Link>
-                </DropdownMenuItem>
                 {/* Logout Button */}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={Logout} className="cursor-pointer">
                     <LogOut className="mr-2 mt-0.5 h-4 w-4"/>
-                    <span>Logout</span>
+                    <span>Log out</span>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
