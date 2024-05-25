@@ -1,44 +1,56 @@
-"use client"
+"use client";
 
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { newVerification } from "@/actions/new-verification";
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { FormSuccess } from "./form-success";
-import { FormError } from "./form-error";
-
-
-
+import { toast } from "react-hot-toast";
 
 export const NewVerificationForm = () => {
     const [error, setError] = useState<string | undefined>();
     const [success, setSuccess] = useState<string | undefined>();
+    const [hasErrorToastShown, setHasErrorToastShown] = useState<boolean>(false);
 
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
+    const router = useRouter();
 
     const onSubmit = useCallback(() => {
-        if (success || error) return;
-        
         if (!token) {
-            setError("No token provided");
+            toast.error("No token provided");
             return;
         }
 
-        newVerification(token)
-            .then((data) => {
-                setSuccess(data.success);
-                setError(data.error)
-
-            })
-            .catch(() => {
-                setError("Something went wrong");
-            })
-    }, [token, success, error]);
+        newVerification(token).then((data) => {
+            if (data?.error) {
+                setTimeout(() => {
+                    setError(data.error);
+                }, 500);
+            } else if (data?.success) {
+                toast.success(data.success);
+                setTimeout(() => {
+                    router.push("/login");
+                }, 100); // Redirect after 3 seconds
+            }
+        }).catch(() => {
+            const errorMessage = "Something went wrong";
+            setError(errorMessage);
+        });
+    }, [token, router]);
 
     useEffect(() => {
         onSubmit();
-    }, [onSubmit])
+    }, [onSubmit]);
+
+    useEffect(() => {
+        if (error && !hasErrorToastShown) {
+            const timer = setTimeout(() => {
+                toast.error(error);
+                setHasErrorToastShown(true);
+            }, 100);
+            return () => clearTimeout(timer); // Cleanup the timeout if component unmounts
+        }
+    }, [error, hasErrorToastShown]);
 
     return (
         <CardWrapper
@@ -50,11 +62,7 @@ export const NewVerificationForm = () => {
                 {!success && !error && (
                     <p>Verifying...</p>
                 )}
-                <FormSuccess message={success} />
-                {!success && (
-                    <FormError message={error} />
-                )}
             </div>
         </CardWrapper>
-    )
-}
+    );
+};
