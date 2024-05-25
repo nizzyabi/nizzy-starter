@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -27,7 +27,7 @@
   }
 
   .dark {
-    --background: #2C2C2C;  /* Updated to HEX value for dark mode */
+    --background: 0 0% 10%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -48,6 +48,7 @@
     --ring: 240 4.9% 83.9%;
   }
 }
+
 
 html {
   scroll-behavior: smooth;;

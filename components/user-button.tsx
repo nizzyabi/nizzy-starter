@@ -10,12 +10,12 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import { useCurrentUser } from "@/hooks/use-current-user"
-import { Book, CreditCard, Github, LayoutDashboard, LogOut, Settings, Twitter, Youtube } from "lucide-react"
+import { Book, CreditCard, LayoutDashboard, LogOut, Settings } from "lucide-react"
 import Link from "next/link"
-import { logout } from '@/actions/logout'
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { signOut } from "next-auth/react"
+
 
 export const UserButton = () => {
     const userButtonItems = [
