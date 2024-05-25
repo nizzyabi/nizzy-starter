@@ -85,6 +85,7 @@ export const LoginForm = () => {
                                             className="bg-secondary border-primary/20"
                                         />
                                     </FormControl>
+                                    <FormMessage className="text-red-500" />
                                 </FormItem>
                             )}
                         />
@@ -97,15 +98,17 @@ export const LoginForm = () => {
                                     <FormControl>
                                         <Input 
                                             {...field}
-                                            placeholder="password"
+                                            placeholder="••••••••"
                                             disabled={isPending}
                                             type="password"
                                             className="bg-secondary border-primary/20"
                                         />
                                     </FormControl>
+                                    <FormMessage className="text-red-500" />
                                     <Button size="sm" variant="link" className=" px-0 pl-1">
-                                        <Link href="/forgot-password">Forgot Password?</Link>
+                                        <Link href="/reset">Forgot Password?</Link>
                                     </Button>
+                                    
                                 </FormItem>
                             )}
                         />    

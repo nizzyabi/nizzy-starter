@@ -2,7 +2,8 @@
 import * as z from "zod";
 import { CardWrapper } from "@/components/auth/card-wrapper"
 import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
     Form,
     FormControl,
@@ -11,45 +12,45 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form"
-import { ResetSchema } from "@/schemas";
+import { NewPasswordSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-import { useState, useTransition } from "react";
-import {reset} from "@/actions/reset";
+import { useTransition } from "react";
+import { newPassword } from "@/actions/new-password";
 import { toast } from "react-hot-toast";
-export const ResetForm = () => {
-    
+
+export const NewPasswordForm = () => {
+    const searchParams = useSearchParams();
+    const token = searchParams.get("token");
+    const router = useRouter()
     const [isPending, startTransition] = useTransition();
 
-    const form = useForm<z.infer<typeof ResetSchema>>({
-        resolver: zodResolver(ResetSchema),
+    const form = useForm<z.infer<typeof NewPasswordSchema>>({
+        resolver: zodResolver(NewPasswordSchema),
         defaultValues: {
-            email: "",
+            password: "",
         }
     })
-    
-    const onSubmit = (values: z.infer<typeof ResetSchema>) => {
+
+    const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
         startTransition(() => {
-           reset(values).then((data) => {
+            newPassword(values, token).then((data) => {
                 if (data?.error) {
                     toast.error(data.error);
                 }
                 if (data?.success) {
                     toast.success(data.success)
-                    form.reset({ email: "" })
+                    form.reset({ password: "" })
                 }
+                router.push("/login")
              })
         })
     }
-
-
     return (
         <CardWrapper
-            headerTitle="Password Reset"
-            backButtonLabel="Back to login"
+            headerTitle="Reset Password"
             backButtonHref="/login"
-            
+            backButtonLabel="Back to login"
         >
             <Form {...form}>
                 <form 
@@ -59,16 +60,16 @@ export const ResetForm = () => {
                     <div className="space-y-4">
                         <FormField 
                             control={form.control}
-                            name="email"
+                            name="password"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>Password</FormLabel>
                                     <FormControl>
                                         <Input 
                                             {...field}
-                                            placeholder="tylerdurden@gmail.com"
+                                            placeholder="••••••••"
                                             disabled={isPending}
-                                            type='email'
+                                            type='Password'
                                             className="bg-secondary border-primary/20"
                                         />
                                     </FormControl>
@@ -77,15 +78,13 @@ export const ResetForm = () => {
                             )}
                         />
                     </div>
-                    
                     <Button 
                         className="w-full mt-4"
                         disabled={isPending}
                         type="submit"
                     >
-                        Send Reset Email 
+                        Reset Password 
                     </Button>
-                    
                 </form>
             </Form>
         </CardWrapper>
