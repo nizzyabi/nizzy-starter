@@ -20,7 +20,6 @@ export const NewVerificationForm = () => {
             toast.error("No token provided");
             return;
         }
-
         newVerification(token).then((data) => {
             if (data?.error) {
                 setTimeout(() => {
@@ -30,7 +29,7 @@ export const NewVerificationForm = () => {
                 toast.success(data.success);
                 setTimeout(() => {
                     router.push("/login");
-                }, 100); // Redirect after 3 seconds
+                }, 100);
             }
         }).catch(() => {
             const errorMessage = "Something went wrong";

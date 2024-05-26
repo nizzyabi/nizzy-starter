@@ -15,13 +15,13 @@ import { Input } from "@/components/ui/input"
 import { CardWrapper } from "@/components/auth/card-wrapper"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useEffect, useRef, useTransition } from "react"
 import { login } from "@/actions/login"
 import toast from "react-hot-toast"
+
 export const LoginForm = () => {
-    const router = useRouter()
-    // Error handling
+    
     const searchParams = useSearchParams()
     const urlError = searchParams.get('error') === 'OAuthAccountNotLinked'
       ? 'Email already in use with different provider!'
@@ -45,7 +45,6 @@ export const LoginForm = () => {
       })
     
       const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-        
         startTransition(() => {
           login(values).then((data) => {
             if (data?.error) {

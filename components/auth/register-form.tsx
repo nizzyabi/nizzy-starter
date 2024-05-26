@@ -19,8 +19,7 @@ import { register } from "@/actions/register"
 import toast from 'react-hot-toast'
 export const RegisterForm = () => {
     const [isPending, startTransition] = useTransition()
-   
-  
+
     const form = useForm<z.infer<typeof RegisterSchema>>({
       resolver: zodResolver(RegisterSchema),
       defaultValues: {
@@ -31,7 +30,6 @@ export const RegisterForm = () => {
     })
 
     const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-        
         startTransition(() => {
           register(values).then((data) => {
             if (data?.error) {

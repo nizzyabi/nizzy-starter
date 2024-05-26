@@ -40,23 +40,8 @@ export const UserButton = () => {
             icon: Settings,
         },
     ];
-
     // Random gradient colors for Avatar
-    const gradientClasses = [
-        "bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500",
-        "bg-gradient-to-r from-red-500 to-orange-500",
-        "bg-gradient-to-r from-amber-500 to-pink-500",
-        "bg-gradient-to-r from-violet-200 to-pink-200",
-        "bg-gradient-to-r from-emerald-400 to-cyan-400",
-        "bg-gradient-to-r from-fuchsia-500 to-cyan-500",
-    ];
-
-    const getRandomGradient = () => {
-        const randomIndex = Math.floor(Math.random() * gradientClasses.length);
-        return gradientClasses[randomIndex];
-    };
-
-    const [gradientClass, setGradientClass] = useState(getRandomGradient());
+   
 
     const router = useRouter();
     const session = useCurrentUser();
@@ -68,11 +53,6 @@ export const UserButton = () => {
         signOut();
         router.push('/login');
     };
-
-    // Set a new random gradient each time the component mounts
-    useEffect(() => {
-        setGradientClass(getRandomGradient());
-    }, []);
 
     return (
         <>
@@ -99,7 +79,7 @@ export const UserButton = () => {
                                 src={session.image ? session.image : ''}
                                 alt="pfp"
                             />
-                            <AvatarFallback className={gradientClass}></AvatarFallback>
+                            <AvatarFallback className='bg-gradient-to-r from-red-500 to-orange-500'></AvatarFallback>
                         </Avatar>
                     </DropdownMenuTrigger>
                     {/* Content */}
