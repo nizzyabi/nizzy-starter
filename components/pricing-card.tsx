@@ -1,8 +1,12 @@
+'use client'
 import { Check, Sparkle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 // Update Tiers Here
-const tiers = [
+export const tiers = [
   {
     name: "Basic",
     price: 8,
@@ -29,7 +33,21 @@ const tiers = [
   },
 ];
 
+export const pricing = 1000
+
 export const PricingCard = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const onClick = async (price: number, name: string) => {
+        try {
+            setIsLoading(true);
+            const response = await axios.post('/api/checkout', { price, name })
+            window.location.href = response.data.url;
+        } catch (error) {
+            toast.error('Failed')
+        } finally {
+            setIsLoading(false);
+        }
+    }
   return (
     <div>
         {/* Title */}
@@ -66,7 +84,7 @@ export const PricingCard = () => {
                             </div>
                             {/* Button */}
                             <div className="mt-6">
-                                <Button className={`w-full flex ${tier.popular ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white' : ''}`}>
+                                <Button onClick={() => onClick(tier.price, tier.name)} className={`w-full flex ${tier.popular ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white' : ''}`}>
                                     {tier.cta}
                                     <Sparkle className="ml-1 h-5 w-5"/>
                                 </Button>
