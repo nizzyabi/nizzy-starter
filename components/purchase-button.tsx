@@ -9,7 +9,7 @@ export const PurchaseButton = () => {
     const onClick = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.post('/api/checkout') // Change from get to post
+            const response = await axios.post('/api/checkout')
             window.location.href = response.data.url;
         } catch (error) {
             toast.error('An error occurred. Please try again.')
