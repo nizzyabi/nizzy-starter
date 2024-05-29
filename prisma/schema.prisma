@@ -23,6 +23,7 @@ model User {
   role          UserRole   @default(USER)
   accounts      Account[]
   createdAt     DateTime  @default(now())
+  subscriptions UserSubscription[]
 }
 
 model Account {
@@ -60,3 +61,14 @@ model PasswordResetToken {
 
   @@unique([email, token])
 }
+
+model UserSubscription {
+  id String @id @default(uuid())
+  userId String @unique
+  stripeCustomerId String? @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
+  stripePriceId String? @unique @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @unique @map(name: "stripe_current_period_end")
+
+   user User @relation(fields: [userId], references: [id])
+  }

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const tiers = [
   {
     name: "Basic",
-    price: 29,
+    price: 8,
     description: "Free forever, for teams just getting started",
     features: ["720p Video Rendering", "2GB Cloud Storage", "Basic Video Templates"],
     cta: "Get Started",
@@ -13,7 +13,7 @@ const tiers = [
   },
   {
     name: "Pro",
-    price: 59,
+    price: 12,
     description: "For larger teams with increased usage",
     features: ["1080p Video Rendering", "10GB Cloud Storage", "Premium Video Templates", "Collaboration Tools"],
     cta: "Get Started",
@@ -21,7 +21,7 @@ const tiers = [
   },
   {
     name: "Enterprise",
-    price: 99,
+    price: 17,
     description: "For businesses with custom needs",
     features: ["4K Video Rendering", "Unlimited Cloud Storage", "Custom Video Templates", "Advanced Collaboration Tools", "Dedicated Support"],
     cta: "Get Started",
