@@ -7,7 +7,6 @@ import { PurchaseButton } from "./purchase-button"
 export const Landing = () => {
     return (
         <div className="space-y-40">
-            <PurchaseButton />
             <Header />
             <Language />
             <PricingCard />

@@ -1,8 +1,7 @@
 import { auth } from "@/auth";
-import { tiers, pricing } from "@/components/pricing-card";
 import { db } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
-import { NextResponse, userAgent } from "next/server";
+import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 export async function POST(
@@ -14,8 +13,6 @@ export async function POST(
             if(!user || !user.user.id) {
                 return new NextResponse("Unauthorized", { status: 401 });
             }
-
-            const { price, name } = await req.json();
 
 
             const userSubscription = await db.userSubscription.findUnique({
@@ -51,7 +48,7 @@ export async function POST(
                                 description: "Saas Subscription Description"
                             },
                             // cost
-                            unit_amount: price * 100,
+                            unit_amount: 899,
                             // subscription
                             recurring: {
                                 interval: "month",
