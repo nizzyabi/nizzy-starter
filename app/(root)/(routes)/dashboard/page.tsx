@@ -1,9 +1,23 @@
-import { Check, CreditCard, DollarSign, PersonStanding } from "lucide-react";
+import { Check, CreditCard, DollarSign, LucideGitGraph, PersonStanding, PersonStandingIcon } from "lucide-react";
 import { DashboardCard } from "./_components/dashboard-card";
 import BarChart from "./_components/barchart";
 import LineGraph from "./_components/line-graph";
+import { db } from "@/lib/db";
+import { auth } from "@/auth";
 
 export default async function DashboardPage(){
+
+    // user count
+    const userCount = await db.user.count();
+    
+    // sales count
+    const salesCount = await db.userSubscription.count();
+
+    // purchases count
+
+    // recent users
+
+
     return (
         <div className="flex flex-col gap-5 w-full">
             <h1 className="font-bold text-4xl mx-6 text-center">Dashboard</h1>
@@ -18,20 +32,20 @@ export default async function DashboardPage(){
                             description="All time"
                         />
                         <DashboardCard
-                            label="Customers"
-                            Icon={PersonStanding}
-                            amount="+225"
+                            label="Monthly Customers"
+                            Icon={CreditCard}
+                            amount={salesCount}
                             description="+22 this month"
                         />
                         <DashboardCard
-                            label="Profit"
-                            Icon={CreditCard}
-                            amount="$8,000"
+                            label="Users"
+                            Icon={PersonStandingIcon}
+                            amount={userCount}
                             description="All time"
                         />
                         <DashboardCard
                             label="Sales"
-                            Icon={Check}
+                            Icon={CreditCard}
                             amount="+40"
                             description="From the last month"
                         />

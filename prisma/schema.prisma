@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
@@ -20,10 +20,11 @@ model User {
   emailVerified DateTime?
   image         String?
   password      String?
-  role          UserRole   @default(USER)
+  role          UserRole  @default(USER)
   accounts      Account[]
   createdAt     DateTime  @default(now())
   subscriptions UserSubscription[]
+  purchases     Purchase[]
 }
 
 model Account {
@@ -44,31 +45,50 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
+
 model VerificationToken {
-  id        String   @id @default(cuid())
-  email     String
-  token     String  @unique
-  expires   DateTime
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
   @@unique([email, token])
 }
 
 model PasswordResetToken {
   id       String   @id @default(cuid())
-  email     String
-  token     String  @unique
-  expires   DateTime
+  email    String
+  token    String   @unique
+  expires  DateTime
 
   @@unique([email, token])
 }
 
 model UserSubscription {
-  id String @id @default(uuid())
-  userId String @unique
-  stripeCustomerId String? @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId String? @unique @map(name: "stripe_subscription_id")
-  stripePriceId String? @unique @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @unique @map(name: "stripe_current_period_end")
+  id                        String   @id @default(uuid())
+  userId                    String   @unique
+  stripeCustomerId          String?  @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId      String?  @unique @map(name: "stripe_subscription_id")
+  stripePriceId             String?  @unique @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd    DateTime? @unique @map(name: "stripe_current_period_end")
+  user                      User     @relation(fields: [userId], references: [id])
+}
 
-   user User @relation(fields: [userId], references: [id])
-  }
+model Purchase {
+  id         String   @id @default(uuid())
+  userId     String
+  amount     Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt()
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model StripeCustomer {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  stripeCustomerId String   @unique
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt()
+}
