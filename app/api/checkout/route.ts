@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
+
 
 export async function POST(
     req: Request
@@ -13,7 +13,6 @@ export async function POST(
             if(!user || !user.user.id) {
                 return new NextResponse("Unauthorized", { status: 401 });
             }
-
 
             const userSubscription = await db.userSubscription.findUnique({
                 where: {
@@ -34,11 +33,11 @@ export async function POST(
                 success_url: 'http://localhost:3000/dashboard',
                 cancel_url: 'http://localhost:3000/login',
                 payment_method_types: ["card"],
-                // you can change this
+                
                 mode: "subscription",
                 billing_address_collection: "auto",
                 customer_email: user?.user.email!,
-                // options of items
+                
                 line_items: [
                     {
                         price_data: {
@@ -47,25 +46,21 @@ export async function POST(
                                 name: "Your SaaS Subscription Name",
                                 description: "Saas Subscription Description"
                             },
-                            // cost
+                            // cost (change this to the price of your product)
                             unit_amount: 899,
-                            // subscription
                             recurring: {
                                 interval: "month",
                             }
                         },
                         quantity: 1,
                     }
-                ],
-                // meta data that gets read after user pays so that we know who payed. 
+                ], 
                 metadata: {
                     userId: user.user.id
                 }
             });
-            // return the stripe session url
             return new NextResponse(JSON.stringify({ url: stripeSession.url}))
-    
-    
+
         } catch (error) {
             console.log("[STRIPE_GET]", error)
             return new NextResponse("Internal Error", { status: 500 })
