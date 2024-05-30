@@ -1,21 +1,18 @@
-import { Calendar, Check, CreditCard, DollarSign, LucideGitGraph, PersonStanding, PersonStandingIcon, UserPlus, UserRoundCheck } from "lucide-react";
+import { Calendar, DollarSign, PersonStandingIcon, UserPlus } from "lucide-react";
 import { DashboardCard } from "./_components/dashboard-card";
-import BarChart from "./_components/barchart";
-import LineGraph from "./_components/line-graph";
 import { db } from "@/lib/db";
-import { auth } from "@/auth";
 import { formatDistanceToNow, startOfMonth, endOfMonth } from 'date-fns';
 import UserDataCard, { UserDataProps } from "./_components/user-data-card";
-import { tiers } from "@/components/pricing-card";
 import UserPurchaseDataCard, { UserPurchaseDataProps } from "./_components/user-purchase-data";
 
 export default async function DashboardPage(){
 
-    // user count
+    const currentDate = new Date();
+
+    // Fetch user count
     const userCount = await db.user.count();
     
-    // new users this month:
-    const currentDate = new Date();
+    // Fetch new users count for the current month
     const newUsersCount = await db.user.count({
       where: {
         createdAt: {
@@ -24,25 +21,25 @@ export default async function DashboardPage(){
         },
       },
     });
-    // sales count
+
+    // Fetch total sales count
     const salesCount = await db.purchase.count();
 
-    // sales amount count
+    // Fetch total sales amount
     const totalAmountResult = await db.purchase.aggregate({
         _sum: {
           amount: true,
         },
-      });
-      const totalAmount = totalAmountResult._sum.amount || 0;
+    });
+    const totalAmount = totalAmountResult._sum.amount || 0;
 
-    
-    // recent users
+    // Fetch recent users
     const recentUsers = await db.user.findMany({
         orderBy: {
-          createdAt: 'desc'
+          createdAt: 'desc',
         },
         take: 7,
-      })
+    });
 
     const userData: UserDataProps[] = recentUsers.map(account => ({
         name: account.name || 'Unknown',
@@ -51,6 +48,7 @@ export default async function DashboardPage(){
         time: formatDistanceToNow(new Date(account.createdAt), { addSuffix: true }),
     }));
 
+    // Fetch recent purchases
     const recentPurchases = await db.purchase.findMany({
         orderBy: {
           createdAt: 'desc',
@@ -59,20 +57,14 @@ export default async function DashboardPage(){
         include: {
           user: true,
         },
-      });
-      const UserPurchaseData: UserPurchaseDataProps[] = await Promise.all(recentPurchases.map(async (purchase) => {
-        const user = await db.user.findUnique({
-          where: { id: purchase.userId },
-        });
-        return {
-          name: user?.name || 'Unknown',
-          email: user?.email || 'No email',
-          image: user?.image || '/mesh.jpeg',
-          saleAmount: `+$${(purchase.amount || 0).toFixed(2)}`,
-        };
-      }));
-  
+    });
 
+    const userPurchaseData: UserPurchaseDataProps[] = recentPurchases.map(purchase => ({
+        name: purchase.user?.name || 'Unknown',
+        email: purchase.user?.email || 'No email',
+        image: purchase.user?.image || '/mesh.jpeg',
+        saleAmount: `+$${(purchase.amount || 0).toFixed(2)}`,
+    }));
 
     return (
         <div className="flex flex-col gap-5 w-full">
@@ -106,29 +98,29 @@ export default async function DashboardPage(){
                             description="This month"
                         />
                     </section>
-                    {/* Graphs & Charts*/}
+                    {/* User Data and Purchase Data Cards */}
                     <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
                         {userData.map((data, index) => (
                             <UserDataCard
-                            key={index}
-                            email={data.email}
-                            name={data.name}
-                            image={data.image}
-                            time={data.time}
+                                key={index}
+                                email={data.email}
+                                name={data.name}
+                                image={data.image}
+                                time={data.time}
                             />
                         ))}
-                        {UserPurchaseData.map((data, index) => (
+                        {userPurchaseData.map((data, index) => (
                             <UserPurchaseDataCard
-                            key={index}
-                            email={data.email}
-                            image={data.image}
-                            name={data.name}
-                            saleAmount={data.saleAmount}
+                                key={index}
+                                email={data.email}
+                                image={data.image}
+                                name={data.name}
+                                saleAmount={data.saleAmount}
                             />
                         ))}
                     </section>                    
                 </div>
             </div>
         </div>
-    )
+    );
 }
