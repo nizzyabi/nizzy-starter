@@ -1,3 +1,6 @@
+import LinkEmail from "@/emails/verify-email";
+import { render } from "@react-email/components";
+import { Link } from "lucide-react";
 import { Resend } from "resend";
 
 const resend  = new Resend(process.env.RESEND_API_KEY);
@@ -5,15 +8,16 @@ const resend  = new Resend(process.env.RESEND_API_KEY);
 // Send a verification email to the user
 export const sendVerificationEmail = async (
     email: string,
-    token: string
+    token: string,
 ) => {
     const confirmLink = `http://localhost:3000/new-verification?token=${token}`;
+
 
     await resend.emails.send({
         from: "Nizar <noreply@nizarlanding.com>",
         to: email,
         subject: "Confirm your email",
-        html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`
+        html: render(LinkEmail({ token }))
     })
 
     resend.contacts.create({
@@ -34,7 +38,7 @@ export const sendPasswordResetEmail = async (
         from: "Nizar <noreply@nizarlanding.com>",
         to: email,
         subject: "Reset your password",
-        html: `<p>Click <a href="${resetLink}">here</a> to reset your password.</p>`
+        html: render(LinkEmail({ token }))
     })
 
 }

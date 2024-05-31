@@ -10,7 +10,8 @@
     "lint": "next lint",
     "migrations:generate": "drizzle-kit generate:pg",
     "db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
-    "studio": "drizzle-kit studio"
+    "studio": "drizzle-kit studio",
+    "email": "email dev"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.1.0",
@@ -24,6 +25,7 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
+    "@react-email/components": "^0.0.19",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
@@ -40,6 +42,7 @@
     "postgres": "^3.4.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-email": "^2.1.4",
     "react-hook-form": "^7.51.4",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.2.1",
