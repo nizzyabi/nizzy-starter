@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import AvatarCircles from '@/components/ui/user-avatar-card'
 
 export const Testimonials = () => {
     // Add or remove testimonials here
@@ -71,10 +72,12 @@ export const Testimonials = () => {
     return (
         <div>
             {/* Section Title */}
-            <div className="max-w-3xl mx-auto text-center">
+            <div className="max-w-3xl mx-auto flex flex-col items-center ">
                 <h2 className="pb-4 text-4xl font-extrabold text-primary">
                     Testimonials
                 </h2>
+                <p className="text-md opacity-50 max-w-lg text-center">Describe your product / service here that will impress the user & want them to buy the product</p>
+                <AvatarCircles />
             </div>
             {/* Testimonials Card*/}
             <div className='flex items-center justify-center mt-4'>

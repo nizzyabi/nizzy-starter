@@ -25,7 +25,7 @@ export const PricingCard = () => {
             const response = await axios.post('/api/checkout')
             window.location.href = response.data.url;
         } catch (error) {
-            toast.error('Failed')
+            toast.error('Error')
         } finally {
             setIsLoading(false);
         }
@@ -35,7 +35,7 @@ export const PricingCard = () => {
       {/* Title */}
       <div className="max-w-3xl mx-auto flex flex-col items-center pb-8">
         <h2 className="pb-4 text-4xl font-extrabold text-primary">Pricing</h2>
-        <p className="text-lg opacity-50 max-w-lg text-center">Describe your product / service here that will impress the user & want them to buy the product</p>
+        <p className="text-md opacity-50 max-w-lg text-center">Describe your product / service here that will impress the user & want them to buy the product</p>
       </div>
       <section className="w-full flex items-center justify-center">
         <div className="container px-4 md:px-6">
