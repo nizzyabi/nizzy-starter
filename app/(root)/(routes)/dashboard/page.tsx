@@ -1,23 +1,22 @@
 import { Calendar, CreditCard, DollarSign, PersonStandingIcon, UserPlus, UserRoundCheck } from "lucide-react";
 import { DashboardCard, DashboardCardContent } from "./_components/dashboard-card";
 import { db } from "@/lib/db";
-import { formatDistanceToNow, startOfMonth, endOfMonth } from 'date-fns';
+import { formatDistanceToNow, startOfMonth, endOfMonth, eachMonthOfInterval, format } from 'date-fns';
 import UserDataCard, { UserDataProps } from "./_components/user-data-card";
 import UserPurchaseDataCard, { UserPurchaseDataProps } from "./_components/user-purchase-data";
 import GoalDataCard from "./_components/goal";
-import { useCurrentRole } from "@/hooks/use-current-role";
-import { UserRole } from "@prisma/client";
+import LineGraph from "./_components/line-graph";
+import BarChart from "./_components/barchart";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
-
     const role = await auth();
 
-    if(role?.user.role === 'USER' || !role) {
+    if (role?.user.role === 'USER' || !role) {
         return redirect('/')
     }
-    
+
     const currentDate = new Date();
 
     // Fetch user count
@@ -79,6 +78,48 @@ export default async function DashboardPage() {
         image: purchase.user?.image || '/mesh.jpeg',
         saleAmount: `+$${(purchase.amount || 0).toFixed(2)}`,
     }));
+
+    // Calculate users joined per month
+    const usersByMonth = await db.user.groupBy({
+        by: ['createdAt'],
+        _count: {
+            createdAt: true,
+        },
+        orderBy: {
+            createdAt: 'asc',
+        },
+    });
+
+    const monthlyUserData = eachMonthOfInterval({
+        start: startOfMonth(new Date(usersByMonth[0]?.createdAt || new Date())),
+        end: endOfMonth(currentDate),
+    }).map(month => {
+        const monthString = format(month, 'MMM');
+        const usersInMonth = usersByMonth.filter(user => format(new Date(user.createdAt), 'MMM') === monthString)
+            .reduce((total, user) => total + user._count.createdAt, 0);
+        return { month: monthString, users: usersInMonth };
+    });
+
+     // Calculate sales amount per month
+     const salesByMonth = await db.purchase.groupBy({
+        by: ['createdAt'],
+        _sum: {
+            amount: true,
+        },
+        orderBy: {
+            createdAt: 'asc',
+        },
+    });
+
+    const monthlySalesData = eachMonthOfInterval({
+        start: startOfMonth(new Date(salesByMonth[0]?.createdAt || new Date())),
+        end: endOfMonth(currentDate),
+    }).map(month => {
+        const monthString = format(month, 'MMM');
+        const salesInMonth = salesByMonth.filter(sale => format(new Date(sale.createdAt), 'MMM') === monthString)
+            .reduce((total, sale) => total + sale._sum.amount!, 0);
+        return { month: monthString, total: salesInMonth };
+    });   
 
     return (
         <div className="flex flex-col gap-5 w-full">
@@ -145,11 +186,16 @@ export default async function DashboardPage() {
                             ))}
                         </DashboardCardContent>
                     </section>
+
+                    <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 text-primary">
+                        <LineGraph data={monthlyUserData} />
+                        <BarChart data={monthlySalesData} />
+                    </section>
+
                     <GoalDataCard 
                         goal={goalAmount}
                         value={progressValue}
                     />
-                   
                 </div>
             </div>
         </div>
