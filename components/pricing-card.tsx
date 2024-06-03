@@ -31,7 +31,7 @@ export const PricingCard = () => {
         }
     }
   return (
-    <div>
+    <div id="pricing">
       {/* Title */}
       <div className="max-w-3xl mx-auto flex flex-col items-center pb-8">
         <h2 className="pb-4 text-4xl font-extrabold text-primary">Pricing</h2>

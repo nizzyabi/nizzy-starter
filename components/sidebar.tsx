@@ -56,7 +56,7 @@ export const Sidebar = () => {
     return (
         <div className="flex flex-col justify-between pl-2">
             <div className="flex">
-                <Image src='/yourlogo.png' alt='logo' height={1} width={20} className="mb-1"/>
+                <Image src='/yourlogo.svg' alt='logo' height={1} width={20} className="mb-1"/>
                 <p className="font-bold ml-1 text-sm">Nizzy Starter Kit</p>
             </div>
             <div className="flex pt-4">
