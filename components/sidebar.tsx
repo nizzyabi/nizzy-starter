@@ -1,13 +1,9 @@
 import { cn } from "@/lib/utils"
 import Link from "next/link";
-import { UserButton } from "./user-button";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { logout } from "@/actions/logout";
-import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
 
 {/* Sidebar links & title*/}
 const sidebarPages = [

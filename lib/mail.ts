@@ -1,3 +1,5 @@
+
+import ResetPassword from "@/emails/reset-email";
 import LinkEmail from "@/emails/verify-email";
 import { render } from "@react-email/components";
 import { Link } from "lucide-react";
@@ -38,7 +40,7 @@ export const sendPasswordResetEmail = async (
         from: "Nizar <noreply@nizarlanding.com>",
         to: email,
         subject: "Reset your password",
-        html: render(LinkEmail({ token }))
+        html: render(ResetPassword({ token }))
     })
 
 }
