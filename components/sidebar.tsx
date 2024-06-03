@@ -7,6 +7,7 @@ import { logout } from "@/actions/logout";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import { ModeToggle } from "./mode-toggle";
 
 {/* Sidebar links & title*/}
 const sidebarPages = [
@@ -15,17 +16,13 @@ const sidebarPages = [
         title: "Home",
     },
     {
-        link: "/profile",
+        link: "#profile",
         title: "Profile",
     },
     {
         
-        link: "/purchases",
+        link: "#purchases",
         title: "Purchases",
-    },
-    {
-        link: "/settings",
-        title: "Settings",
     },
 ]
 
@@ -63,19 +60,14 @@ export const Sidebar = () => {
     return (
         <div className="flex flex-col justify-between pl-2">
             <div className="flex">
-                <Image src='/yourlogo.png' alt='logo' height={1} width={30} />
-                <p className="font-bold pt-1 ml-1">Nizzy Starter Kit</p>
+                <Image src='/yourlogo.png' alt='logo' height={1} width={20} className="mb-1"/>
+                <p className="font-bold ml-1 text-sm">Nizzy Starter Kit</p>
             </div>
-
-            <div className=" pt-8">
+            <div className="flex pt-4">
+                <ModeToggle />
+            </div>
+            <div className=" pt-3">
                 <div className="space-y-4">
-                    {!session && (
-                        <Link href="/login" className="group flex py-2 w-full justify-start font-light cursor-pointer">
-                            <div className="flex w-full pb-3">
-                                <p className="mt-1 font-medium ">Sign Up</p>
-                            </div>
-                        </Link>
-                    )}
                     <div className="ml-2">
                         <h1 className="font-semibold">Main</h1>
                         {sidebarPages.map((page) => (
@@ -106,12 +98,18 @@ export const Sidebar = () => {
                             </Link>
                         ))}
                     </div>
-                    {session && (
+                    {session ? (
                         <Link href="/login" className="group flex py-2 w-full justify-start  cursor-pointer rounded ml-2">
                             <div className="flex  w-full pb-3" onClick={Logout}>
                                 <p className="mt-1 font-semibold">Logout</p>
                             </div>
                         </Link>
+                    ) : (
+                        <Link href="/login" className="group flex pt-2 w-full justify-start font-light cursor-pointer">
+                        <div className="flex w-full ml-2 pb-3">
+                            <p className="font-semibold ">Sign Up</p>
+                        </div>
+                    </Link>
                     )}
                 </div>
             </div>
