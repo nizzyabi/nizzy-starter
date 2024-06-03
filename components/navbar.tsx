@@ -28,7 +28,7 @@ export const Navbar = () => {
                     <MobileSidebar />
                     {/* Logo */}
                     <Link href="/">
-                        <Image src="/yourlogo.svg" alt="Logo" width={60} height={80} />
+                        <Image src="/yourlogo.svg" alt="Logo" width={50} height={80} />
                     </Link>
                     {/* Links, Theme, & User */}
                     <div className="hidden sm:flex h-[40px] items-center text-lg md:text-lg font-medium mr-2 gap-4  transition-all">

@@ -13,10 +13,10 @@ export const Header = () => {
                     </p>
                     <div className="flex justify-center lg:justify-start items-center mt-4">
                         <Link
-                            className="flex justify-center items-center w-40 transition duration-150 ease-in-out font-medium rounded px-4 py-1.5 text-secondary bg-primary"
+                            className="flex justify-center items-center w-40 transition duration-150 ease-in-out font-medium rounded px-4 py-2.5 text-secondary bg-primary"
                             href="/overview"
                         >
-                            <Sparkles className="mr-1 h-5 w-5" /> Get Started
+                            <Sparkles className="mr-1 h-5 w-5" fill="secondary"/> Get Started
                         </Link>
                     </div>
                 </div>
