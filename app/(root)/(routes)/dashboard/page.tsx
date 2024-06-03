@@ -1,9 +1,10 @@
-import { Calendar, DollarSign, PersonStandingIcon, UserPlus } from "lucide-react";
-import { DashboardCard } from "./_components/dashboard-card";
+import { Calendar, CreditCard, DollarSign, PersonStandingIcon, UserPlus, UserRoundCheck } from "lucide-react";
+import { DashboardCard, DashboardCardContent } from "./_components/dashboard-card";
 import { db } from "@/lib/db";
 import { formatDistanceToNow, startOfMonth, endOfMonth } from 'date-fns';
 import UserDataCard, { UserDataProps } from "./_components/user-data-card";
 import UserPurchaseDataCard, { UserPurchaseDataProps } from "./_components/user-purchase-data";
+import GoalDataCard from "./_components/goal";
 
 export default async function DashboardPage(){
 
@@ -32,6 +33,9 @@ export default async function DashboardPage(){
         },
     });
     const totalAmount = totalAmountResult._sum.amount || 0;
+
+    const goalAmount = 100;
+    const progressValue = (totalAmount / goalAmount) * 100;
 
     // Fetch recent users
     const recentUsers = await db.user.findMany({
@@ -80,45 +84,62 @@ export default async function DashboardPage(){
                             description="All time"
                         />
                         <DashboardCard
-                            label="Total Subscriptions"
+                            label="Total Paid Subscriptions"
                             Icon={Calendar}
                             amount={`+${salesCount}`}
                             description="All time"
                         />
                         <DashboardCard
-                            label="Current Users"
+                            label="Total Users"
                             Icon={PersonStandingIcon}
                             amount={`+${userCount}`}
                             description="All time"
                         />
                         <DashboardCard
-                            label="New Users"
+                            label="Users This Month"
                             Icon={UserPlus}
                             amount={`+${newUsersCount}`}
                             description="This month"
                         />
                     </section>
                     {/* User Data and Purchase Data Cards */}
-                    <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
+                    <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2 text-primary">
+                    <DashboardCardContent>
+                        <section className="flex justify-between gap-2 text-primary pb-2">
+                            <p>Recent Users</p>
+                            <UserRoundCheck className="h-4 w-4" />
+                        </section>
                         {userData.map((data, index) => (
                             <UserDataCard
-                                key={index}
+                                key={`user-${index}`}
                                 email={data.email}
                                 name={data.name}
                                 image={data.image}
                                 time={data.time}
                             />
                         ))}
-                        {userPurchaseData.map((data, index) => (
-                            <UserPurchaseDataCard
+                        </DashboardCardContent>
+                        <DashboardCardContent>
+                        <section className="flex justify-between gap-2 text-primary pb-2">
+                            <p>Recent Sales</p>
+                            <CreditCard className="h-4 w-4" />
+                        </section>
+                            {userPurchaseData.map((data, index) => (
+                                <UserPurchaseDataCard
                                 key={index}
                                 email={data.email}
                                 image={data.image}
                                 name={data.name}
                                 saleAmount={data.saleAmount}
-                            />
-                        ))}
-                    </section>                    
+                                />
+                            ))}
+                        </DashboardCardContent>
+                        </section>
+                        <GoalDataCard 
+                            goal={goalAmount}
+                            value={progressValue}
+                        />
+                                        
                 </div>
             </div>
         </div>
