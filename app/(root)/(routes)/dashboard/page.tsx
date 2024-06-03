@@ -5,22 +5,32 @@ import { formatDistanceToNow, startOfMonth, endOfMonth } from 'date-fns';
 import UserDataCard, { UserDataProps } from "./_components/user-data-card";
 import UserPurchaseDataCard, { UserPurchaseDataProps } from "./_components/user-purchase-data";
 import GoalDataCard from "./_components/goal";
+import { useCurrentRole } from "@/hooks/use-current-role";
+import { UserRole } from "@prisma/client";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default async function DashboardPage(){
+export default async function DashboardPage() {
 
+    const role = await auth();
+
+    if(role?.user.role === 'USER' || !role) {
+        return redirect('/')
+    }
+    
     const currentDate = new Date();
 
     // Fetch user count
     const userCount = await db.user.count();
-    
+
     // Fetch new users count for the current month
     const newUsersCount = await db.user.count({
-      where: {
-        createdAt: {
-          gte: startOfMonth(currentDate),
-          lte: endOfMonth(currentDate),
+        where: {
+            createdAt: {
+                gte: startOfMonth(currentDate),
+                lte: endOfMonth(currentDate),
+            },
         },
-      },
     });
 
     // Fetch total sales count
@@ -29,7 +39,7 @@ export default async function DashboardPage(){
     // Fetch total sales amount
     const totalAmountResult = await db.purchase.aggregate({
         _sum: {
-          amount: true,
+            amount: true,
         },
     });
     const totalAmount = totalAmountResult._sum.amount || 0;
@@ -40,7 +50,7 @@ export default async function DashboardPage(){
     // Fetch recent users
     const recentUsers = await db.user.findMany({
         orderBy: {
-          createdAt: 'desc',
+            createdAt: 'desc',
         },
         take: 7,
     });
@@ -55,11 +65,11 @@ export default async function DashboardPage(){
     // Fetch recent purchases
     const recentPurchases = await db.purchase.findMany({
         orderBy: {
-          createdAt: 'desc',
+            createdAt: 'desc',
         },
         take: 5,
         include: {
-          user: true,
+            user: true,
         },
     });
 
@@ -103,43 +113,43 @@ export default async function DashboardPage(){
                         />
                     </section>
                     {/* User Data and Purchase Data Cards */}
-                    <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2 text-primary">
-                    <DashboardCardContent>
-                        <section className="flex justify-between gap-2 text-primary pb-2">
-                            <p>Recent Users</p>
-                            <UserRoundCheck className="h-4 w-4" />
-                        </section>
-                        {userData.map((data, index) => (
-                            <UserDataCard
-                                key={`user-${index}`}
-                                email={data.email}
-                                name={data.name}
-                                image={data.image}
-                                time={data.time}
-                            />
-                        ))}
-                        </DashboardCardContent>
+                    <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 text-primary">
                         <DashboardCardContent>
-                        <section className="flex justify-between gap-2 text-primary pb-2">
-                            <p>Recent Sales</p>
-                            <CreditCard className="h-4 w-4" />
-                        </section>
-                            {userPurchaseData.map((data, index) => (
-                                <UserPurchaseDataCard
-                                key={index}
-                                email={data.email}
-                                image={data.image}
-                                name={data.name}
-                                saleAmount={data.saleAmount}
+                            <section className="flex justify-between gap-2 text-primary pb-2">
+                                <p>Recent Users</p>
+                                <UserRoundCheck className="h-4 w-4" />
+                            </section>
+                            {userData.map((data, index) => (
+                                <UserDataCard
+                                    key={`user-${index}`}
+                                    email={data.email}
+                                    name={data.name}
+                                    image={data.image}
+                                    time={data.time}
                                 />
                             ))}
                         </DashboardCardContent>
-                        </section>
-                        <GoalDataCard 
-                            goal={goalAmount}
-                            value={progressValue}
-                        />
-                                        
+                        <DashboardCardContent>
+                            <section className="flex justify-between gap-2 text-primary pb-2">
+                                <p>Recent Sales</p>
+                                <CreditCard className="h-4 w-4" />
+                            </section>
+                            {userPurchaseData.map((data, index) => (
+                                <UserPurchaseDataCard
+                                    key={`purchase-${index}`}
+                                    email={data.email}
+                                    image={data.image}
+                                    name={data.name}
+                                    saleAmount={data.saleAmount}
+                                />
+                            ))}
+                        </DashboardCardContent>
+                    </section>
+                    <GoalDataCard 
+                        goal={goalAmount}
+                        value={progressValue}
+                    />
+                   
                 </div>
             </div>
         </div>
