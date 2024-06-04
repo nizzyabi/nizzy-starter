@@ -42,9 +42,9 @@ export const PricingCard = () => {
           {/* Pricing Card Display */}
           <div className="flex items-center justify-center">
             {tiers.map((tier) => (
-              <div key={tier.name} className={`relative flex flex-col p-6 shadow-lg rounded-lg justify-between border bg-secondary w-full lg:w-[550px] mx-auto ${tier.popular ? 'border-yellow-500' : 'border-primary/20 bg-secondary'}`}>
+              <div key={tier.name} className={`relative flex flex-col p-6 shadow-lg rounded-lg justify-between border bg-secondary w-full lg:w-[550px] mx-auto ${tier.popular ? 'border-violet-500' : 'border-primary/20 bg-secondary'}`}>
                 {tier.popular && (
-                  <div className="bg-secondary px-3 py-1 text-white text-sm bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+                  <div className="bg-secondary px-3 py-1 text-white text-sm bg-violet-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
                     Popular
                   </div>
                 )}
@@ -66,7 +66,7 @@ export const PricingCard = () => {
                 </div>
                 {/* Button */}
                 <div className="mt-6">
-                  <Button onClick={onClick} className={`w-full flex ${tier.popular ? 'text-primary/70 bg-gradient-to-r from-yellow-500 to-orange-500 text-white' : ''}`}>
+                  <Button onClick={onClick} className={`w-full flex ${tier.popular ? 'text-primary/70 bg-violet-500 text-white' : ''}`}>
                     {tier.cta}
                     <Sparkle className="ml-1 h-5 w-5" />
                   </Button>
