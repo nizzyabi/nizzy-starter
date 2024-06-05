@@ -31,7 +31,7 @@ export function Language() {
   return (
     <section>
       <div>
-        <div className="container mx-auto px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-20">
           <div className="relative">
             <div className="grid grid-cols-2 place-items-center gap-2 md:gap-4 lg:grid-cols-4 xl:gap-x-6 2xl:grid-cols-8">
               {languages.map((language, idx) => (
