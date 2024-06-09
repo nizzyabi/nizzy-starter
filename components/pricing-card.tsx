@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 // Update Tiers Here
 export const tiers = [
@@ -26,13 +27,19 @@ export const tiers = [
 
 export const PricingCard = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const session = useCurrentUser();
+
     const onClick = async () => {
+      if (!session) {
+        toast.error('Sign in to purchase!');
+        return;
+    }
         try {
             setIsLoading(true);
             const response = await axios.post('/api/checkout')
             window.location.href = response.data.url;
         } catch (error) {
-            toast.error('Error')
+            toast.error('An error occured! Please try again.')
         } finally {
             setIsLoading(false);
         }
@@ -73,7 +80,7 @@ export const PricingCard = () => {
                 </div>
                 {/* Button */}
                 <div className="mt-6">
-                  <Button disabled={!tier.yourProduct} onClick={onClick} className={`w-full flex ${tier.yourProduct ? 'text-primary/70 bg-violet-500 text-white' : ''}`}>
+                  <Button disabled={!tier.yourProduct} onClick={onClick} className={`w-full flex ${tier.yourProduct ? 'text-primary/70 bg-violet-500 text-white hover:bg-violet-500/65' : ''}`}>
                     {tier.cta}
                     <Sparkle className="ml-1 h-5 w-5" />
                   </Button>
