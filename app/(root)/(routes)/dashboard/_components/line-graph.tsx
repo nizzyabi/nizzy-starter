@@ -20,7 +20,7 @@ export default function LineGraph({ data }: LineGraphProps) {
     return (
         <div className="bg-secondary/90 shadow flex w-full flex-col gap-3 rounded-[5px] p-5">
             <section className="flex justify-between gap-2 pb-2">
-                <p>Users Data</p>
+                <p>Number Of Users</p>
                 <User className="h-4 w-4" />
             </section>
             <ResponsiveContainer width={"100%"} height={350}>
