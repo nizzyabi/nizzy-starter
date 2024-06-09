@@ -26,7 +26,7 @@ import {
         <Container style={container}>
           <Heading style={h1}>Login</Heading>
           <Link
-            href={`http://localhost:3000/verify-email?token=${token}`}
+            href={`${process.env.APP_URL}/verify-email?token=${token}`}
             target="_blank"
             style={{
               ...link,

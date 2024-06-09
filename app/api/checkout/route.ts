@@ -23,15 +23,15 @@ export async function POST(
             if (userSubscription && userSubscription.stripeCustomerId) {
                 const stripeSession = await stripe.billingPortal.sessions.create({
                     customer: userSubscription.stripeCustomerId,
-                    return_url: 'http://localhost:3000'
+                    return_url: process.env.APP_URL
                 })
 
                 return new NextResponse(JSON.stringify({ url: stripeSession.url }))
             }
 
             const stripeSession = await stripe.checkout.sessions.create({
-                success_url: 'http://localhost:3000/dashboard',
-                cancel_url: 'http://localhost:3000/login',
+                success_url: process.env.APP_URL,
+                cancel_url: process.env.APP_URL,
                 payment_method_types: ["card"],
                 
                 mode: "subscription",

@@ -34,7 +34,7 @@ export const sendPasswordResetEmail = async (
     email: string,
     token: string,
 ) => {
-    const resetLink = `http://localhost:3000/new-password?token=${token}`;
+    const resetLink = `${process.env.APP_URL}/new-password?token=${token}`;
 
     await resend.emails.send({
         from: "Nizar <noreply@nizarlanding.com>",
