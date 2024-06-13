@@ -239,6 +239,8 @@ If this is not the case, make sure you didn't miss any of the steps before. If t
 
 You should now be able to edit and change whatever you'd like, if you are having trouble with specific libraries, make sure to check out the respective documentation and properly research about the issue.
 
+Make sure you remove the Alert at the top if you intend to use this starter kit. To do so go to `app/layout.tsx` and remove the `<AlertDemo />` component (you may also delete it from `components/alert.tsx`).
+
 ### Theme configuration
 
 The project is theme based, which means it is based on one color for the entire thing. The theme color is a shade [fuchsia](https://www.colorhexa.com/d948ef) and it's defined in HSL.
