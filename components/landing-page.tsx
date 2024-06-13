@@ -2,6 +2,7 @@ import { PricingCard } from "@/components/pricing-card";
 import { Testimonials } from "@/components/testimonials";
 import { Header } from "@/components/header";
 import { Language } from "./languages";
+import { Footer } from "./footer";
 
 export const Landing = () => {
   return (
@@ -10,6 +11,7 @@ export const Landing = () => {
       <Language />
       <PricingCard />
       <Testimonials />
+      <Footer />
     </div>
   );
 };

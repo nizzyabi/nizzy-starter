@@ -9,8 +9,8 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 // Update Tiers Here
 export const tiers = [
   {
-    name: "Your Competitor Name",
-    price: "18.99",
+    name: "Free",
+    price: "0.00",
     features: [
       "Feature 1",
       "Feature 2",
@@ -27,8 +27,8 @@ export const tiers = [
     yourProduct: false,
   },
   {
-    name: "Your Product Name",
-    priceBefore: "$19.99",
+    name: "Pro",
+    priceBefore: "$14.99",
     price: "8.99",
     features: [
       "Feature 1",
@@ -44,6 +44,24 @@ export const tiers = [
     ],
     cta: "Get Started",
     yourProduct: true,
+  },
+  {
+    name: "Enterprise",
+    price: "18.99",
+    features: [
+      "Feature 1",
+      "Feature 2",
+      "Feature 3",
+      "Feature 4",
+      "Feature 5",
+      "Feature 6",
+      "Feature 7",
+      "Feature 8",
+      "Feature 9",
+      "Feature 10",
+    ],
+    cta: "Get Started",
+    yourProduct: false,
   },
 ];
 

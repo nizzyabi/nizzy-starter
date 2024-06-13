@@ -43,42 +43,6 @@ export const Testimonials = () => {
       message:
         "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
     },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..",
-    },
   ];
 
   return (
