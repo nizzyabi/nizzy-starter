@@ -36,7 +36,7 @@ export default async function RootLayout({
             <AlertDemo />
             <Navbar />
             {children}
-            <Footer />
+            
           </ThemeProvider>
         </body>
       </html>
