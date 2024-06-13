@@ -5,8 +5,8 @@
 @layer base {
   :root {
     /* Adjust these to change the theme color */
-    --primary: 292 84% 61%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 208 87% 53%;
+    --primary-foreground: 0 0% 0%;
 
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;

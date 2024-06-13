@@ -91,7 +91,7 @@ export const PricingCard = () => {
               }`}
             >
               {tier.yourProduct && (
-                <div className="px-3 py-1 text-white text-sm bg-primary rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="px-3 py-1 text-primary-foreground text-sm bg-primary rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                   Popular
                 </div>
               )}
@@ -142,7 +142,7 @@ export const PricingCard = () => {
                 <Button
                   disabled={!tier.yourProduct}
                   onClick={onClick}
-                  className="w-full disabled:bg-foreground/15 hover:-translate-y-1"
+                  className="w-full disabled:text-muted-foreground disabled:bg-foreground/15 hover:-translate-y-1"
                 >
                   {tier.cta}
                   <Sparkle className="ml-1 h-4 w-4" />

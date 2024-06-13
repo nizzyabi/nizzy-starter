@@ -31,8 +31,9 @@ export function Language() {
       <div className="absolute top-0 left-0 w-1/4 h-full bg-gradient-to-r from-background pointer-events-none z-10"></div>
       <div className="absolute top-0 right-0 w-1/4 h-full bg-gradient-to-r from-transparent to-background pointer-events-none z-10"></div>
       <Marquee speed={30} autoFill>
-        {languages.map((language) => (
+        {languages.map((language, i) => (
           <language.icon
+            key={i}
             className={
               language.className +
               'text-foreground opacity-50 hover:opacity-100 transition duration-300 ml-32 cursor-pointer'

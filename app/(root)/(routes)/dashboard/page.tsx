@@ -148,78 +148,77 @@ export default async function DashboardPage() {
   })
 
   return (
-    <div className="flex flex-col gap-5 w-full">
-      <h1 className="font-bold text-4xl mx-6 text-center">Dashboard</h1>
-      <div className="container mx-auto py-8">
-        <div className="flex flex-col gap-5 w-full">
-          {/* Dashboard Cards */}
-          <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
-            <DashboardCard
-              label="Revenue"
-              Icon={DollarSign}
-              amount={`$${totalAmount}`}
-              description="All time"
-            />
-            <DashboardCard
-              label="Total Paid Subscriptions"
-              Icon={Calendar}
-              amount={`+${salesCount}`}
-              description="All time"
-            />
-            <DashboardCard
-              label="Total Users"
-              Icon={PersonStandingIcon}
-              amount={`+${userCount}`}
-              description="All time"
-            />
-            <DashboardCard
-              label="Users This Month"
-              Icon={UserPlus}
-              amount={`+${newUsersCount}`}
-              description="This month"
-            />
-          </section>
-          {/* User Data and Purchase Data Cards */}
-          <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 text-primary">
-            <DashboardCardContent>
-              <section className="flex justify-between gap-2 text-primary pb-2">
-                <p>Recent Users</p>
-                <UserRoundCheck className="h-4 w-4" />
-              </section>
-              {userData.map((data, index) => (
-                <UserDataCard
-                  key={`user-${index}`}
-                  email={data.email}
-                  name={data.name}
-                  image={data.image}
-                  time={data.time}
-                />
-              ))}
-            </DashboardCardContent>
-            <DashboardCardContent>
-              <section className="flex justify-between gap-2 text-primary pb-2">
-                <p>Recent Sales</p>
-                <CreditCard className="h-4 w-4" />
-              </section>
-              {userPurchaseData.map((data, index) => (
-                <UserPurchaseDataCard
-                  key={`purchase-${index}`}
-                  email={data.email}
-                  image={data.image}
-                  name={data.name}
-                  saleAmount={data.saleAmount}
-                />
-              ))}
-            </DashboardCardContent>
-          </section>
+    <div className="flex flex-col gap-10 w-full mt-8">
+      <h1 className="font-bold text-4xl text-center">Dashboard</h1>
+      <div className="flex flex-col gap-6 w-full">
+        {/* Dashboard Cards */}
+        <section className="grid w-full grid-cols-1 gap-6 transition-all sm:grid-cols-2 xl:grid-cols-4">
+          <DashboardCard
+            label="Revenue"
+            Icon={DollarSign}
+            amount={`$${totalAmount}`}
+            description="All time"
+          />
+          <DashboardCard
+            label="Total Paid Subscriptions"
+            Icon={Calendar}
+            amount={`+${salesCount}`}
+            description="All time"
+          />
+          <DashboardCard
+            label="Total Users"
+            Icon={PersonStandingIcon}
+            amount={`+${userCount}`}
+            description="All time"
+          />
+          <DashboardCard
+            label="Users This Month"
+            Icon={UserPlus}
+            amount={`+${newUsersCount}`}
+            description="This month"
+          />
+        </section>
+        {/* User Data and Purchase Data Cards */}
+        <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-primary">
+          <DashboardCardContent>
+            <section className="flex justify-between gap-2 text-primary pb-2">
+              <p>Recent Users</p>
+              <UserRoundCheck className="h-4 w-4" />
+            </section>
+            {userData.map((data, index) => (
+              <UserDataCard
+                key={`user-${index}`}
+                email={data.email}
+                name={data.name}
+                image={data.image}
+                time={data.time}
+              />
+            ))}
+          </DashboardCardContent>
+          <DashboardCardContent>
+            <section className="flex justify-between gap-2 text-primary pb-2">
+              <p>Recent Sales</p>
+              <CreditCard className="h-4 w-4" />
+            </section>
 
-          <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2 text-primary">
-            <LineGraph data={monthlyUserData} />
-            <BarChart data={monthlySalesData} />
-          </section>
+            {userPurchaseData.map((data, index) => (
+              <UserPurchaseDataCard
+                key={`purchase-${index}`}
+                email={data.email}
+                image={data.image}
+                name={data.name}
+                saleAmount={data.saleAmount}
+              />
+            ))}
+          </DashboardCardContent>
+        </section>
 
-          <GoalDataCard goal={goalAmount} value={progressValue} />
-        </div>
+        <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-primary">
+          <LineGraph data={monthlyUserData} />
+          <BarChart data={monthlySalesData} />
+        </section>
+
+        <GoalDataCard goal={goalAmount} value={progressValue} />
       </div>
     </div>
   )

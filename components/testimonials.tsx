@@ -5,7 +5,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import AvatarCircles from '@/components/ui/user-avatar-card'
 
 export const Testimonials = () => {
-  // Add or remove testimonials here
+  // Add or remove testimonials here following this format
   const testimonials = [
     {
       name: 'John Doe',
@@ -23,19 +23,7 @@ export const Testimonials = () => {
       name: 'John Doe',
       avatar: '/testimonials/john-doe.jpg',
       message:
-        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..'
-    },
-    {
-      name: 'John Doe',
-      avatar: '/testimonials/john-doe.jpg',
-      message:
         'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
-    },
-    {
-      name: 'John Doe',
-      avatar: '/testimonials/john-doe.jpg',
-      message:
-        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..'
     },
     {
       name: 'John Doe',
@@ -59,7 +47,19 @@ export const Testimonials = () => {
       name: 'John Doe',
       avatar: '/testimonials/john-doe.jpg',
       message:
-        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..'
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
+    },
+    {
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
+      message:
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
+    },
+    {
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
+      message:
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     }
   ]
 
@@ -79,9 +79,9 @@ export const Testimonials = () => {
       {/* Testimonials Card*/}
       <div className="flex items-center justify-center my-6">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl px-6">
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial, i) => (
             <Card
-              key={testimonial.name}
+              key={i}
               className="py-4 px-0 bg-secondary border-0 ring-[2px] ring-foreground/10 ring-inset rounded-lg hover:bg-primary/10 hover:ring-primary/25 transition duration-300 cursor-default"
             >
               <CardContent className="py-0">

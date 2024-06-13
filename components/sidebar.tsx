@@ -4,6 +4,7 @@ import { useCurrentUser } from '@/hooks/use-current-user'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import { ModeToggle } from '@/components/mode-toggle'
+import { Logo } from '@/components/logo'
 
 {
   /* Sidebar links & title*/
@@ -56,23 +57,16 @@ export const Sidebar = () => {
   }
   return (
     <div className="flex flex-col justify-between pl-2">
-      <div className="flex">
-        <Image
-          src="/yourlogo.svg"
-          alt="logo"
-          height={1}
-          width={20}
-          className="mb-1"
-        />
-        <p className="font-bold ml-1 text-sm">Nizzy Starter Kit</p>
-      </div>
+      <Link href="/">
+        <Logo />
+      </Link>
       <div className="flex pt-4">
         <ModeToggle />
       </div>
       <div className=" pt-3">
         <div className="space-y-4">
           <div className="ml-2">
-            <h1 className="font-semibold">Main</h1>
+            <h1 className="text-xl font-semibold">Main</h1>
             {sidebarPages.map((page) => (
               <Link
                 key={page.link}
@@ -82,13 +76,13 @@ export const Sidebar = () => {
                 )}
               >
                 <div className="flex w-full">
-                  <p className=" font-normal   text-primary/40">{page.title}</p>
+                  <p className="font-normal text-foreground/75">{page.title}</p>
                 </div>
               </Link>
             ))}
           </div>
           <div className="ml-2">
-            <h1 className="font-semibold">Socials</h1>
+            <h1 className="text-xl font-semibold">Socials</h1>
             {socials.map((page) => (
               <Link
                 key={page.link}
@@ -98,7 +92,7 @@ export const Sidebar = () => {
                 )}
               >
                 <div className="flex w-full">
-                  <p className="font-normal   text-primary/40">{page.title}</p>
+                  <p className="font-normal text-foreground/75">{page.title}</p>
                 </div>
               </Link>
             ))}
@@ -106,11 +100,10 @@ export const Sidebar = () => {
           {session ? (
             <Link
               href="/login"
-              className="group flex py-2 w-full justify-start  cursor-pointer rounded ml-2"
+              className="group flex py-2 w-full justify-start cursor-pointer rounded ml-2 font-bold text-xl"
+              onClick={Logout}
             >
-              <div className="flex  w-full pb-3" onClick={Logout}>
-                <p className="mt-1 font-semibold">Logout</p>
-              </div>
+              Logout
             </Link>
           ) : (
             <Link

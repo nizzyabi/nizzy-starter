@@ -101,7 +101,7 @@ Example:
 
 ```env
 DATABASE_URL="postgresql://username:password@hostname:port/database_name"
-DIRECT_URL="https://api.example.com/endpoint"
+DIRECT_URL="postgresql://username:password@hostname:port/database_name"
 ```
 
 #### App URL
@@ -201,6 +201,16 @@ RESEND_API_KEY="re_2514c2801e44bed9a3bdf9e094e2ce1c"
 STRIPE_API_KEY="sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 STRIPE_WEBHOOK_SECRET="whsec_1234567890abcdef1234567890abcdef"
 ```
+
+### Generating the Database tables
+
+Now that the env variables are setup, we need to create the tables in your database in order for the authentication and analytics to work. To do so, run the following command:
+
+```bash
+npm run database
+```
+
+If you have any trouble in this process, please open an issue or join my discord for help.
 
 ### Running the project
 

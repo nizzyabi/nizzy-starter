@@ -102,3 +102,41 @@ export function Error404(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function RandomIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 48 48"
+      {...props}
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M24 5.5H5.5V24H24ZM42.5 24H24v18.5h18.5Z"
+      ></path>
+      <circle
+        cx={14.75}
+        cy={33.25}
+        r={9.25}
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></circle>
+      <circle
+        cx={33.25}
+        cy={14.75}
+        r={9.25}
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></circle>
+    </svg>
+  )
+}

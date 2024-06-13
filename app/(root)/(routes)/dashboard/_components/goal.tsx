@@ -8,7 +8,7 @@ export type GoalDataProps = {
 
 export default function GoalDataCard(props: GoalDataProps) {
   return (
-    <div className="rounded-[5px] p-5 bg-secondary/90">
+    <div className="rounded-lg p-5 bg-secondary dark:bg-secondary/50">
       <section className="flex justify-between gap-2 text-primary pb-2">
         <p>Goal Progress</p>
         <Target className="h-4 w-4" />
@@ -22,7 +22,7 @@ export default function GoalDataCard(props: GoalDataProps) {
             />
           </div>
         </section>
-        <div className="flex justify-between text-sm opacity-50 pt-3">
+        <div className="flex justify-between text-sm opacity-75 pt-3">
           <p>Goal: ${props.goal}</p>
           <p className="">${Math.round(props.value)} made</p>
         </div>

@@ -14,15 +14,15 @@ export const DashboardCard = ({
   description
 }: DashboardCardProps) => {
   return (
-    <div className="bg-secondary/90 shadow flex w-full flex-col gap-3 rounded-[5px] p-5">
+    <div className="bg-secondary dark:bg-secondary/50 shadow flex w-full flex-col gap-3 rounded-lg p-5">
       {/* Label & Icon */}
-      <section className="flex justify-between gap-2">
+      <section className="flex justify-between gap-2 text-primary">
         <p className="text-sm">{label}</p>
         <Icon className="h-4 w-4" />
       </section>
       {/* Amount & Description */}
       <section className="flex flex-col gap-1">
-        <h2 className="text-2xl font-semibold">{amount}</h2>
+        <h2 className="text-2lg font-semibold">{amount}</h2>
         <p className="text-xs">{description}</p>
       </section>
     </div>
@@ -36,7 +36,7 @@ export function DashboardCardContent(
     <div
       {...props}
       className={cn(
-        'flex w-full flex-col gap-3 rounded-[5px] p-5 shadow bg-secondary',
+        'flex w-full flex-col gap-3 rounded-lg p-5 shadow bg-secondary dark:bg-secondary/50',
         props.className
       )}
     />

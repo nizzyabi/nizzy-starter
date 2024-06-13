@@ -17,8 +17,9 @@ export type LineGraphProps = {
 
 export default function LineGraph({ data }: LineGraphProps) {
   const { theme } = useTheme()
+
   return (
-    <div className="bg-secondary/90 shadow flex w-full flex-col gap-3 rounded-[5px] p-5">
+    <div className="bg-secondary dark:bg-secondary/50 shadow flex w-full flex-col gap-3 rounded-lg p-5">
       <section className="flex justify-between gap-2 pb-2">
         <p>Number Of Users</p>
         <User className="h-4 w-4" />
@@ -31,15 +32,14 @@ export default function LineGraph({ data }: LineGraphProps) {
           <Line
             type="monotone"
             dataKey="users"
-            stroke={`${theme === light_theme ? '#000000' : '#f3f3f3'}`}
+            fill="hsl(var(--primary))"
             width={50}
-            strokeWidth={3}
           />
           <XAxis
             dataKey={'month'}
             tickLine={false}
             axisLine={true}
-            stroke={`${theme === light_theme ? '#000000' : '#f3f3f3'}`}
+            stroke={`${theme === light_theme ? '#000' : '#fff'}`}
             fontSize={13}
             padding={{ left: 0, right: 0 }}
           />
@@ -47,12 +47,16 @@ export default function LineGraph({ data }: LineGraphProps) {
             dataKey={'users'}
             tickLine={false}
             axisLine={true}
-            stroke={`${theme === light_theme ? '#000000' : '#f3f3f3'}`}
+            stroke={`${theme === light_theme ? '#000' : '#fff'}`}
             fontSize={13}
             padding={{ top: 0, bottom: 0 }}
             allowDecimals={false}
           />
-          <CartesianGrid strokeDasharray="2 2" className="opacity-50" />
+          <CartesianGrid
+            stroke={`${theme === light_theme ? '#000' : '#fff'}`}
+            strokeDasharray="2 2"
+            className="opacity-25"
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>

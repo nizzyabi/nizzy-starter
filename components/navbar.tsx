@@ -3,6 +3,7 @@ import { ModeToggle } from '@/components/mode-toggle'
 import Image from 'next/image'
 import { UserButton } from '@/components/user-button'
 import { MobileSidebar } from '@/components/mobile-sidebar'
+import { Logo } from '@/components/logo'
 
 export const navPages = [
   {
@@ -27,7 +28,7 @@ export const Navbar = () => {
           <MobileSidebar />
           {/* Logo */}
           <Link href="/">
-            <Image src="/yourlogo.svg" alt="Logo" width={50} height={80} />
+            <Logo />
           </Link>
           {/* Links, Theme, & User */}
           <div className="hidden sm:flex h-[40px] items-center text-lg md:text-lg font-medium gap-4 transition-all">
