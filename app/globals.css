@@ -4,14 +4,16 @@
 
 @layer base {
   :root {
+    /* Adjust these to change the theme color */
+    --primary: 292 84% 61%;
+    --primary-foreground: 0 0% 98%;
+
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
@@ -27,14 +29,12 @@
   }
 
   .dark {
-    --background: 0 0% 10%;
+    --background: 0 0% 7%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -49,20 +49,17 @@
   }
 }
 
-
 html {
-  scroll-behavior: smooth;;
+  scroll-behavior: smooth;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
 
-
-
-
-
-
-
-
-  
-
- 
-    
+main {
+  flex: 1 0 0;
+}
