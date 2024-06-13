@@ -38,7 +38,7 @@ Alternatively, you can also clone it using [GitHub Desktop](https://desktop.gith
 
 ### Setup using NPM
 
-This starter kit currently uses NPM as the package manager, if you use any other package manager follow [this section](#configuration-for-different-package-managers).
+This starter kit currently uses NPM as the package manager, if you use any other package manager follow [this section](#setup-using-different-package-managers).
 
 Follow the steps below to correctly setup the project on your machine, and ensure everything works as expected.
 
@@ -279,10 +279,11 @@ If you do change the main color please consider changing the `--primary-foregrou
 
 ### Aditional information
 
-Starter Kit author: NizarAbiZaher  
-Readme file: dpaulos6
+SaaS Starter Kit Author: NizarAbiZaher
 
 #### Special thanks to all the contributors below:
+
+- [dpaulos6](https://github.com/dpaulos6)
 
 ### Socials
 
