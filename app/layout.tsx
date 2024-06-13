@@ -1,43 +1,45 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/ui/theme-provider"
-import { Navbar } from "@/components/navbar";
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { ThemeProvider } from '@/components/ui/theme-provider'
+import { Navbar } from '@/components/navbar'
 import { ToastProvider } from '@/components/providers/toaster-provider'
-import { SessionProvider } from "next-auth/react";
-import { auth } from "@/auth";
-import { AlertDemo } from "@/components/alert";
+import { SessionProvider } from 'next-auth/react'
+import { auth } from '@/auth'
+import { AlertDemo } from '@/components/alert'
+import { Footer } from '@/components/footer'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Nizzy-Starter",
-  description: "The best SaaS starter kit on the web 🌎 🚀 HAHA",
-};
+  title: 'Nizzy-Starter',
+  description: 'The best SaaS starter kit on the web 🌎 🚀 HAHA'
+}
 
 export default async function RootLayout({
-  children,
+  children
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   const session = await auth()
   return (
     <SessionProvider session={session}>
-    <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AlertDemo />
-          <Navbar />
-          <ToastProvider />
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+      <html lang="en">
+        <body className={inter.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ToastProvider />
+            <AlertDemo />
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </html>
     </SessionProvider>
-  );
+  )
 }

@@ -101,7 +101,7 @@ Example:
 
 ```env
 DATABASE_URL="postgresql://username:password@hostname:port/database_name"
-DIRECT_URL="https://api.example.com/endpoint"
+DIRECT_URL="postgresql://username:password@hostname:port/database_name"
 ```
 
 #### App URL
@@ -202,6 +202,16 @@ STRIPE_API_KEY="sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 STRIPE_WEBHOOK_SECRET="whsec_1234567890abcdef1234567890abcdef"
 ```
 
+### Generating the Database tables
+
+Now that the env variables are setup, we need to create the tables in your database in order for the authentication and analytics to work. To do so, run the following command:
+
+```bash
+npm run database
+```
+
+If you have any trouble in this process, please open an issue or join my discord for help.
+
 ### Running the project
 
 In order to verify if everything is working properly and to further customize the project to your own SaaS, you need to start a local development server. You can do so using any of the following commands:
@@ -238,6 +248,34 @@ If this is not the case, make sure you didn't miss any of the steps before. If t
 ### That's it!
 
 You should now be able to edit and change whatever you'd like, if you are having trouble with specific libraries, make sure to check out the respective documentation and properly research about the issue.
+
+Make sure you remove the Alert at the top if you intend to use this starter kit. To do so go to `app/layout.tsx` and remove the `<AlertDemo />` component (you may also delete it from `components/alert.tsx`).
+
+### Theme configuration
+
+The project is theme based, which means it is based on one color for the entire thing. The theme color is a shade [fuchsia](https://www.colorhexa.com/d948ef) and it's defined in HSL.
+
+You can find the theme colors in `app/globals.css`. To change the main theme color replace the `--primary` with HSL or RBG, without comas seperating them (I'm not sure if it is possible to use other color models, but feel free to try it out).
+
+Here is how you can do it using CSS variables:
+
+```css
+/* Using HSL */
+--primary: 292 84% 61%; /* Background colors, borders,... */
+--primary-foreground: 0 0% 98%; /* Foreground in buttons */
+
+/* Using RBG Decimal */
+--primary: 217 72 239;
+--primary-foreground: 250 250 250;
+
+/* Using RBG Percent */
+--primary: 85.1% 28.2% 93.7%;
+--primary-foreground: 98% 98% 98%;
+```
+
+The reason for the colors not being defined like `hsl(292, 84%, 61%)` is because the project uses tailwind for styling, and with the current definition we can control the alpha within the class, for example `bg-primary/20` (this will make the primary color have an alpha value of 0.2).
+
+If you do change the main color please consider changing the `--primary-foreground` as well, since it is currently a shade of white and it might not look good on the color you chose.
 
 ### Aditional information
 

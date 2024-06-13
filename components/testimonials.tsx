@@ -1,91 +1,73 @@
-"use client";
+'use client'
 
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import AvatarCircles from "@/components/ui/user-avatar-card";
+import { Card, CardContent, CardTitle } from '@/components/ui/card'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import AvatarCircles from '@/components/ui/user-avatar-card'
 
 export const Testimonials = () => {
-  // Add or remove testimonials here
+  // Add or remove testimonials here following this format
   const testimonials = [
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
     },
     {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
+      name: 'John Doe',
+      avatar: '/testimonials/john-doe.jpg',
       message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.",
-    },
-    {
-      name: "John Doe",
-      avatar: "/testimonials/john-doe.jpg",
-      message:
-        "Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service..",
-    },
-  ];
+        'Write customer / user testimonials here. Please make sure it is a real one & not a fake one. You can add as many as you want. In fact, the more the better since people like to see what others are saying about your product or service.'
+    }
+  ]
 
   return (
     <div>
       {/* Section Title */}
-      <div className="max-w-3xl mx-auto flex flex-col items-center px-6">
-        <h2 className="pb-4 text-4xl font-extrabold text-primary">
+      <div className="max-w-3xl mx-auto flex flex-col items-center">
+        <h2 className="pb-4 text-4xl font-extrabold text-foreground">
           Testimonials
         </h2>
         <p className="text-md opacity-50 max-w-lg text-center">
@@ -97,10 +79,10 @@ export const Testimonials = () => {
       {/* Testimonials Card*/}
       <div className="flex items-center justify-center my-6">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl px-6">
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial, i) => (
             <Card
-              key={testimonial.name}
-              className="py-4 px-0 bg-secondary border border-primary/20 rounded-lg"
+              key={i}
+              className="py-4 px-0 bg-secondary border-0 ring-[2px] ring-foreground/10 ring-inset rounded-lg hover:bg-primary/10 hover:ring-primary/25 transition duration-300 cursor-default"
             >
               <CardContent className="py-0">
                 <div className="flex">
@@ -111,16 +93,18 @@ export const Testimonials = () => {
                     />
                   </Avatar>
 
-                  <CardTitle className="text-lg pl-2 text-primary pt-1">
+                  <CardTitle className="text-lg pl-2 text-foreground pt-1">
                     {testimonial.name}
                   </CardTitle>
                 </div>
-                <p className="pt-3 text-primary/70">"{testimonial.message}"</p>
+                <p className="pt-3 text-foreground/70">
+                  "{testimonial.message}"
+                </p>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

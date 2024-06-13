@@ -1,5 +1,5 @@
-"use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+'use client'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,57 +7,57 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { signOut } from "next-auth/react";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { useCurrentUser } from '@/hooks/use-current-user'
+import { signOut } from 'next-auth/react'
 import {
   Book,
   CreditCard,
   LayoutDashboard,
   LogOut,
-  Settings,
-} from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+  Settings
+} from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
 
 export const UserButton = () => {
   const userButtonItems = [
     {
-      label: "Dashboard",
-      href: "/dashboard",
-      icon: LayoutDashboard,
+      label: 'Dashboard',
+      href: '/dashboard',
+      icon: LayoutDashboard
     },
     {
-      label: "Docs",
-      href: "/docs",
-      icon: Book,
+      label: 'Docs',
+      href: '/docs',
+      icon: Book
     },
     {
-      label: "Billing",
-      href: "/payments",
-      icon: CreditCard,
+      label: 'Billing',
+      href: '/payments',
+      icon: CreditCard
     },
     {
-      label: "Settings",
-      href: "/settings",
-      icon: Settings,
-    },
-  ];
+      label: 'Settings',
+      href: '/settings',
+      icon: Settings
+    }
+  ]
   // Random gradient colors for Avatar
 
-  const router = useRouter();
-  const session = useCurrentUser();
+  const router = useRouter()
+  const session = useCurrentUser()
 
   const onClick = () => {
-    router.push("/register");
-  };
+    router.push('/register')
+  }
   const Logout = () => {
-    signOut();
-    router.push("/login");
-  };
+    signOut()
+    router.push('/login')
+  }
 
   return (
     <>
@@ -83,7 +83,7 @@ export const UserButton = () => {
           <DropdownMenuTrigger asChild>
             {/* User Avatar / Logo */}
             <Avatar className="cursor-pointer">
-              <AvatarImage src={session.image ? session.image : ""} alt="pfp" />
+              <AvatarImage src={session.image ? session.image : ''} alt="pfp" />
               <AvatarFallback className="bg-gradient-to-r from-red-500 to-orange-500"></AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
@@ -117,7 +117,7 @@ export const UserButton = () => {
         </DropdownMenu>
       )}
     </>
-  );
-};
+  )
+}
 
-export default UserButton;
+export default UserButton

@@ -1,54 +1,46 @@
 'use client'
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
+import { NextjsIcon, ResendIcon, StripeIcon, TailwindcssIcon } from './icons'
+import Marquee from 'react-fast-marquee'
 
 const languages = [
   {
-    srcLight: '/language/stripe.png',
-    srcDark: '/language/stripe.png',
-    className: 'px-2 opacity-50 hover:opacity-100 transition-opacity duration-300 ease-in-out cursor-pointer'
+    label: 'Stripe',
+    icon: StripeIcon,
+    className: 'w-36 h-auto aspect-square'
   },
   {
-    srcLight: '/language/resend-dark.png',
-    srcDark: '/language/resend-light.png',
-    className: 'px-2 opacity-50 hover:opacity-100 transition-opacity duration-300 ease-in-out cursor-pointer'
+    label: 'Resend',
+    icon: ResendIcon,
+    className: 'w-36 p-5 h-auto aspect-square'
   },
   {
-    srcLight: '/language/tailwind.png',
-    srcDark: '/language/tailwind.png',
-    className: 'px-2 opacity-50 hover:opacity-100 transition-opacity duration-300 ease-in-out cursor-pointer'
+    label: 'TailwindCSS',
+    icon: TailwindcssIcon,
+    className: 'w-48 px-5 h-auto aspect-square'
   },
   {
-    srcLight: '/language/next-dark.png',
-    srcDark: '/language/next-light.png',
-    className: 'px-2 opacity-50 hover:opacity-100 transition-opacity duration-300 ease-in-out cursor-pointer'
-  },
-  
-];
+    label: 'NextJS',
+    icon: NextjsIcon,
+    className: 'w-36 p-5 h-auto aspect-square'
+  }
+]
 
 export function Language() {
-  const { theme } = useTheme();
-
   return (
-    <section>
-      <div>
-        <div className="container mx-auto px-4 md:px-20">
-          <div className="relative">
-            <div className="grid grid-cols-2 place-items-center gap-2 md:gap-4 lg:grid-cols-4 ">
-              {languages.map((language, idx) => (
-                <Image
-                  key={idx}
-                  src={theme === 'light' ? language.srcLight : language.srcDark}
-                  className={language.className}
-                  alt="logo"
-                  height={80}
-                  width={240}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+    <section className="relative">
+      <div className="absolute top-0 left-0 w-1/4 h-full bg-gradient-to-r from-background pointer-events-none z-10"></div>
+      <div className="absolute top-0 right-0 w-1/4 h-full bg-gradient-to-r from-transparent to-background pointer-events-none z-10"></div>
+      <Marquee speed={30} autoFill>
+        {languages.map((language, i) => (
+          <language.icon
+            key={i}
+            className={
+              language.className +
+              'text-foreground opacity-50 hover:opacity-100 transition duration-300 ml-32 cursor-pointer'
+            }
+          />
+        ))}
+      </Marquee>
     </section>
-  );
+  )
 }

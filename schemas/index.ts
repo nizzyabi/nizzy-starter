@@ -1,4 +1,4 @@
-import * as z from "zod"
+import * as z from 'zod'
 
 // Do not allow spaces in password
 const noSpaces = (value: string) => {
