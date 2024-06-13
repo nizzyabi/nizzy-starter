@@ -78,7 +78,7 @@ export const Testimonials = () => {
       </div>
       {/* Testimonials Card*/}
       <div className="flex items-center justify-center my-6">
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl px-6">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
           {testimonials.map((testimonial, i) => (
             <Card
               key={i}
