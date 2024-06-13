@@ -1,36 +1,253 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nizzy Starter
 
-## Getting Started
+An SaaS (Service as a Software) template starter kit already set up, that requires bare minimum configuration. For more details, watch [Free & Open Source SaaS Template Starter Kit](https://youtu.be/Q6jDdtbkMIU) on YouTube.
 
-First, run the development server:
+## Tech Stack
+
+- NextJS 14
+- Prisma
+- TailwindCSS
+
+## Saas Features
+
+- Simple elegant UI
+- Light and dark mode
+- Manual authentication and OAuth (Google and GitHub)
+- Database integration using Prisma
+- Admin analytics page
+- Payment system using Stripe
+- Email integration with Resend and React Email
+
+## Getting started
+
+Here will be a step by step guide of how to setup the SaaS starter kit on your machine.
+
+### Cloning the repository
+
+Firstly, you need to clone the repository. You can do it like this:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Using Git
+git clone https://github.com/NizarAbiZaher/nizzy-starter.git
+
+# Using GitHub CLI
+gh repo clone NizarAbiZaher/nizzy-starter
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Alternatively, you can also clone it using [GitHub Desktop](https://desktop.github.com/) application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Setup using NPM
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This starter kit currently uses NPM as the package manager, if you use any other package manager follow [this section](#configuration-for-different-package-managers).
 
-## Learn More
+Follow the steps below to correctly setup the project on your machine, and ensure everything works as expected.
 
-To learn more about Next.js, take a look at the following resources:
+First, install the modules and dependencies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+When that's done, you need to setup your `.env` file. On the root folder of your project you should see a file called `.env.example`. That file already contains a written guide to get the variables you need, but bellow will be the same steps in case you can't find it.
 
-## Deploy on Vercel
+### Setup using different package managers
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Follow the steps below to correctly setup the project on your machine, and ensure everything works as expected.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Since you wont use NPM, you need to remove the `package-lock.json` to prevent any possible conflicts.
+
+Install the modules and dependencies:
+
+```bash
+# Using pnpm
+pnpm install
+
+# Using yarn
+yarn install
+
+# Using bun
+bun install
+```
+
+If you dont use any of these, find the equivalent command for your package manager.
+
+#### Create the environment variables file
+
+On the root folder of your project, create a file called `.env` or `.env.local` and paste the following:
+
+```env
+DATABASE_URL=""
+DIRECT_URL=""
+APP_URL="http://localhost:3000"
+AUTH_SECRET=""
+GITHUB_CLIENT_ID=""
+GITHUB_CLIENT_SECRET=""
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+RESEND_API_KEY=""
+STRIPE_API_KEY=""
+STRIPE_WEBHOOK_SECRET=""
+```
+
+You are not required to use quotes your variables, although its recommended because in some cases, due to some special characters, it can mess up the variable.
+
+#### Connect your database
+
+You can use any database of your choice, i like to use [Neon](https://neon.tech/). You can watch [this video](https://youtu.be/ZAjOep8-M-Y?si=L94KHhlbV27y-V_O) if you want help related to database configuration.
+
+If you already have a database prepared and know how to use it, you can just get the Database URL and Direct URL.
+
+Example:
+
+```env
+DATABASE_URL="postgresql://username:password@hostname:port/database_name"
+DIRECT_URL="https://api.example.com/endpoint"
+```
+
+#### App URL
+
+Change this value when deploying your application.
+
+Example:
+
+```env
+APP_URL="https://example.com/"
+```
+
+#### Auth Secret
+
+The auth system was made using NextAuth, which required an auth secret for it to work. You can use any Secret generator, such as [https://generate-secret.vercel.app/32](https://generate-secret.vercel.app/32).
+
+Example:
+
+```env
+AUTH_SECRET="bae23fc1c21a41743058c56a366459a2"
+```
+
+#### GitHub Client ID and Client Secret
+
+Go to [GitHub Developers](https://github.com/settings/developers) and click on **OAuth Apps** then **New OAuth App**. Fill in the details as follows:
+
+1. Homepage URL: http://localhost:3000 (change to your domain when deploying)
+2. Authorization callback URL: http://localhost:3000/api/auth/callback/github (replace `localhost:3000` with your domain when deploying)
+3. Click on Register Application
+
+After creating a new OAuth App, copy the required Client ID and Client Secret and populate the respective variables.
+
+Example:
+
+```env
+GITHUB_CLIENT_ID="abc123def456ghi789jkl"
+GITHUB_CLIENT_SECRET="s3cr3tK3yV@lu3!"
+```
+
+Disclaimer: This was generated as an example from ChatGPT and will not work.
+
+#### Google Client ID and Client Secret
+
+Go to [Google Cloud Console](https://console.cloud.google.com) and click on **Create project** at the top and do as follows:
+
+1. Name your project and click create
+2. Go to the search, find and go to **APIs and Services**.
+3. Click on **OAuth Consent Screen** on the sidebar, select **External** and fill out the **App Name**, **Support Email**, and **Developer Contact Information**. You may **Add Domain** if you have one, else leave it blank.
+4. Click on **Save and Continue** until you reach the summary page.
+5. Click on **Credentials** on the sidebar, click on **Create Credentials** and select **OAuth client ID**
+6. Click on **Web Application** then on **Add URI** for both **Authorized JavaScript Origins** and **Authorized Redirect URIs**. Fill in the details as follows:
+   - Authorized JavaScript Origins: http://localhost:3000 (change to your domain when deploying)
+   - Authorized Redirect URIs: http://localhost:3000/api/auth/callback/google (change to your domain when deploying)
+
+After creating a new OAuth App, copy the required Client ID and Client Secret and populate the respective variables.
+
+Example:
+
+```env
+GOOGLE_CLIENT_ID="1234567890-abcde12345fghij67890klmno.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="XyZ_1234567890AbCdEfGhIj"
+```
+
+#### Resend API Key
+
+Go to [Resend Website](https://resend.com/home) and on the **API Keys** section create a new API key. Fill the inputs and configure the settings as you wish, then copy the key and populate the respective variable.
+
+Example:
+
+```env
+RESEND_API_KEY="re_2514c2801e44bed9a3bdf9e094e2ce1c"
+```
+
+#### Stripe API Key and Webhook Secret
+
+You can find both at [Stripe](https://stripe.com). For more setup information you can checkout [this video](https://youtu.be/5hSEEod_BuA?si=377LS1z0ThLcs46T).
+
+Example:
+
+```env
+STRIPE_API_KEY="sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+STRIPE_WEBHOOK_SECRET="whsec_1234567890abcdef1234567890abcdef"
+```
+
+#### Full `.env` file example
+
+```env
+DATABASE_URL="postgresql://username:password@hostname:port/database_name"
+DIRECT_URL="https://api.example.com/endpoint"
+APP_URL="https://example.com/"
+AUTH_SECRET="bae23fc1c21a41743058c56a366459a2"
+GITHUB_CLIENT_ID="abc123def456ghi789jkl"
+GITHUB_CLIENT_SECRET="s3cr3tK3yV@lu3!"
+GOOGLE_CLIENT_ID="1234567890-abcde12345fghij67890klmno.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="XyZ_1234567890AbCdEfGhIj"
+RESEND_API_KEY="re_2514c2801e44bed9a3bdf9e094e2ce1c"
+STRIPE_API_KEY="sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+STRIPE_WEBHOOK_SECRET="whsec_1234567890abcdef1234567890abcdef"
+```
+
+### Running the project
+
+In order to verify if everything is working properly and to further customize the project to your own SaaS, you need to start a local development server. You can do so using any of the following commands:
+
+```bash
+# Using npm
+npm run dev
+
+# Using pnpm
+pnpm run dev
+
+# Using yarn
+yarn run dev
+
+# Using bun
+bun run dev
+```
+
+It should output something like this:
+
+```bash
+  ▲ Next.js 14.2.3
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+  ✓ Starting...
+  ✓ Ready in 2.4s
+```
+
+If this is the case, you can just **CTRL** + **Click** on http://localhost:3000, or manually opening it on your browser.
+
+If this is not the case, make sure you didn't miss any of the steps before. If the error persists and you don't know what to do, open an issue [here](https://github.com/NizarAbiZaher/nizzy-starter/issues).
+
+### That's it!
+
+You should now be able to edit and change whatever you'd like, if you are having trouble with specific libraries, make sure to check out the respective documentation and properly research about the issue.
+
+### Aditional information
+
+Starter Kit author: NizarAbiZaher  
+Readme file: dpaulos6
+
+#### Special thanks to all the contributors below:
+
+### Socials
+
+- [YouTube](https://www.youtube.com/@NizzyABI)
+- [GitHub](https://github.com/NizarAbiZaher)
+- [Discord Community](https://discord.com/invite/nizar)
