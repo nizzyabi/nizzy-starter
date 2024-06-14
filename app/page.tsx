@@ -1,3 +1,4 @@
+import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Language } from '@/components/languages'
 import { PricingCard } from '@/components/pricing-card'
@@ -10,6 +11,7 @@ export default function Home() {
       <Language />
       <PricingCard />
       <Testimonials />
+      <Footer />
     </main>
   )
 }
