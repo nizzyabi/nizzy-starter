@@ -6,9 +6,6 @@ import Image from 'next/image'
 import { ModeToggle } from '@/components/mode-toggle'
 import { Logo } from '@/components/logo'
 
-{
-  /* Sidebar links & title*/
-}
 const sidebarPages = [
   {
     link: '/',
@@ -50,14 +47,19 @@ const socials = [
     title: 'Discord'
   }
 ]
-export const Sidebar = () => {
+
+interface SidebarProps {
+  closeSidebar?: () => void
+}
+
+export const Sidebar = ({ closeSidebar }: SidebarProps) => {
   const session = useCurrentUser()
   const Logout = () => {
     signOut()
   }
   return (
     <div className="flex flex-col justify-between pl-2">
-      <Link href="/">
+      <Link href="/" onClick={closeSidebar}>
         <Logo />
       </Link>
       <div className="flex pt-4">
@@ -74,6 +76,7 @@ export const Sidebar = () => {
                 className={cn(
                   'group flex py-1.5 w-full justify-start font-light cursor-pointer'
                 )}
+                onClick={closeSidebar}
               >
                 <div className="flex w-full">
                   <p className="font-normal text-foreground/75">{page.title}</p>
@@ -90,6 +93,7 @@ export const Sidebar = () => {
                 className={cn(
                   'group flex w-full justify-start font-light cursor-pointer py-1.5'
                 )}
+                onClick={closeSidebar}
               >
                 <div className="flex w-full">
                   <p className="font-normal text-foreground/75">{page.title}</p>
@@ -101,7 +105,10 @@ export const Sidebar = () => {
             <Link
               href="/login"
               className="group flex py-2 w-full justify-start cursor-pointer rounded ml-2 font-bold text-xl"
-              onClick={Logout}
+              onClick={() => {
+                Logout()
+                closeSidebar && closeSidebar()
+              }}
             >
               Logout
             </Link>
@@ -109,6 +116,7 @@ export const Sidebar = () => {
             <Link
               href="/login"
               className="group flex pt-2 w-full justify-start font-light cursor-pointer"
+              onClick={closeSidebar}
             >
               <div className="flex w-full ml-2 pb-3">
                 <p className="font-semibold ">Sign Up</p>
