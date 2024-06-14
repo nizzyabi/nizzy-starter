@@ -12,11 +12,11 @@ export const navPages = [
   },
   {
     title: 'Pricing',
-    link: '#pricing'
+    link: '/#pricing'
   },
   {
     title: 'Items',
-    link: '#items'
+    link: '/#items'
   }
 ]
 
