@@ -136,7 +136,7 @@ export const PricingCard = () => {
               <Button
                 disabled={!tier.yourProduct}
                 onClick={onClick}
-                className="w-full disabled:text-muted-foreground disabled:bg-foreground/15 hover:-translate-y-1"
+                className={`w-full ${tier.yourProduct && 'hover:-translate-y-1'}`}
               >
                 {tier.cta}
                 <Sparkle className="ml-1 h-4 w-4" />
