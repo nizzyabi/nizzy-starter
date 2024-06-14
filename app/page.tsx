@@ -6,12 +6,14 @@ import { Testimonials } from '@/components/testimonials'
 
 export default function Home() {
   return (
-    <main className="w-full max-w-6xl px-6 space-y-40">
-      <Header />
-      <Language />
-      <PricingCard />
-      <Testimonials />
+    <>
+      <main className="w-full max-w-6xl px-6 space-y-40">
+        <Header />
+        <Language />
+        <PricingCard />
+        <Testimonials />
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

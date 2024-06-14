@@ -148,7 +148,7 @@ export default async function DashboardPage() {
   })
 
   return (
-    <div className="flex flex-col gap-10 w-full mt-8">
+    <div className="flex flex-col gap-10 w-full mt-8 mb-12">
       <h1 className="font-bold text-4xl text-center">Dashboard</h1>
       <div className="flex flex-col gap-6 w-full">
         {/* Dashboard Cards */}

@@ -67,7 +67,7 @@ export const PricingCard = () => {
     }
   }
   return (
-    <div id="pricing">
+    <section id="pricing" className="scroll-mt-4">
       {/* Title */}
       <div className="mx-auto flex flex-col items-center pb-8">
         <h2 className="pb-4 text-4xl font-extrabold text-foreground">
@@ -78,80 +78,73 @@ export const PricingCard = () => {
           them to buy the product
         </p>
       </div>
-      <section>
-        {/* Pricing Card Display */}
-        <div className="flex flex-col sm:place-items-center md:flex-row items-center justify-center gap-6">
-          {tiers.map((tier) => (
-            <div
-              key={tier.name}
-              className={`relative flex flex-col p-6 shadow-lg rounded-lg justify-between ring-2 ring-inset w-full max-w-[550px]  ${
-                tier.yourProduct
-                  ? 'bg-primary/10 ring-primary/50'
-                  : 'bg-secondary ring-foreground/10'
-              }`}
-            >
-              {tier.yourProduct && (
-                <div className="px-3 py-1 text-primary-foreground text-sm bg-primary rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  Popular
-                </div>
-              )}
-              {/* Pricing */}
-              <div>
-                <h3
-                  className={`text-lg font-semibold ${
-                    tier.yourProduct ? 'text-primary' : 'text-foreground/70'
-                  }`}
-                >
-                  {tier.name}
-                </h3>
-                <div
-                  className={`mt-4 ${
-                    tier.yourProduct
-                      ? 'text-foreground/90'
-                      : 'text-foreground/70'
-                  }`}
-                >
-                  {tier.priceBefore ? (
-                    <span className="font-semibold mr-2 line-through text-lg opacity-75">
-                      {tier.priceBefore}
-                    </span>
-                  ) : null}
-                  <span className="text-4xl font-bold">${tier.price}</span>{' '}
-                  /month
-                </div>
-                <ul className="mt-4 space-y-2.5">
-                  {tier.features.map((feature, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center text-foreground/90 gap-2"
-                    >
-                      <Check
-                        className={`h-6 w-6 rounded-full ${
-                          tier.yourProduct
-                            ? 'text-primary'
-                            : 'text-foreground/70'
-                        }`}
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+      {/* Pricing Card Display */}
+      <div className="flex flex-col sm:place-items-center md:flex-row items-center justify-center gap-6">
+        {tiers.map((tier) => (
+          <div
+            key={tier.name}
+            className={`relative flex flex-col p-6 shadow-lg rounded-lg justify-between ring-2 ring-inset w-full max-w-[550px]  ${
+              tier.yourProduct
+                ? 'bg-primary/10 ring-primary/50'
+                : 'bg-secondary ring-foreground/10'
+            }`}
+          >
+            {tier.yourProduct && (
+              <div className="px-3 py-1 text-primary-foreground text-sm bg-primary rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                Popular
               </div>
-              {/* Button */}
-              <div className="mt-6">
-                <Button
-                  disabled={!tier.yourProduct}
-                  onClick={onClick}
-                  className="w-full disabled:text-muted-foreground disabled:bg-foreground/15 hover:-translate-y-1"
-                >
-                  {tier.cta}
-                  <Sparkle className="ml-1 h-4 w-4" />
-                </Button>
+            )}
+            {/* Pricing */}
+            <div>
+              <h3
+                className={`text-lg font-semibold ${
+                  tier.yourProduct ? 'text-primary' : 'text-foreground/70'
+                }`}
+              >
+                {tier.name}
+              </h3>
+              <div
+                className={`mt-4 ${
+                  tier.yourProduct ? 'text-foreground/90' : 'text-foreground/70'
+                }`}
+              >
+                {tier.priceBefore ? (
+                  <span className="font-semibold mr-2 line-through text-lg opacity-75">
+                    {tier.priceBefore}
+                  </span>
+                ) : null}
+                <span className="text-4xl font-bold">${tier.price}</span> /month
               </div>
+              <ul className="mt-4 space-y-2.5">
+                {tier.features.map((feature, index) => (
+                  <li
+                    key={index}
+                    className="flex items-center text-foreground/90 gap-2"
+                  >
+                    <Check
+                      className={`h-6 w-6 rounded-full ${
+                        tier.yourProduct ? 'text-primary' : 'text-foreground/70'
+                      }`}
+                    />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
-        </div>
-      </section>
-    </div>
+            {/* Button */}
+            <div className="mt-6">
+              <Button
+                disabled={!tier.yourProduct}
+                onClick={onClick}
+                className={`w-full ${tier.yourProduct && 'hover:-translate-y-1'}`}
+              >
+                {tier.cta}
+                <Sparkle className="ml-1 h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   )
 }
