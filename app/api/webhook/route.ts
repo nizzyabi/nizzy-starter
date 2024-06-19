@@ -50,8 +50,6 @@ export async function POST(req: Request) {
       session.subscription as string
     );
 
-    const subscriptionId = subscription.id;
-
     await db.userSubscription.update({
       where: {
         stripeSubscriptionId: subscription.id
@@ -69,7 +67,7 @@ export async function POST(req: Request) {
 
     await db.userSubscription.update({
       where: {
-        stripeSubscriptionId: subscription.id
+        stripeSubscriptionId: subscriptionId
       },
       data: {
         stripeCurrentPeriodEnd: new Date(event.data.object.current_period_end * 1000)
