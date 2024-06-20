@@ -273,6 +273,24 @@ Here is how you can do it using CSS variables:
 --primary-foreground: 0% 0% 0%;
 ```
 
+Here's how you can change the `tailwind.config.ts` file to the color model you want to use:
+
+```ts
+// Using HSL
+primary: {
+  DEFAULT: 'hsl(var(--primary))',
+  foreground: 'hsl(var(--primary-foreground))'
+},
+
+// Using RGB Decimal/Percent
+primary: {
+  DEFAULT: 'rgb(var(--primary))',
+  foreground: 'rgb(var(--primary-foreground))'
+},
+```
+
+The `tailwind.config.ts` file doesn't only have the content above, so find the matching code and update accordingly.
+
 The reason for the colors not being defined like `hsl(208, 87%, 53%)` is because the project uses tailwind for styling, and with the current definition we can control the alpha within the class, for example `bg-primary/20` (this will make the primary color have an alpha value of 0.2).
 
 If you do change the main color please consider changing the `--primary-foreground` as well, since it is currently a shade of white and it might not look good on the color you chose.
@@ -283,7 +301,7 @@ SaaS Starter Kit Author: NizarAbiZaher
 
 #### Special thanks to all the contributors below:
 
-- [dpaulos6](https://github.com/dpaulos6)
+- [dpaulos6](https://github.com/dpaulos6) - *README, Theme Config and UI*
 
 ### Socials
 
