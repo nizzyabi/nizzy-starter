@@ -11,6 +11,10 @@ export const navPages = [
     link: '/dashboard'
   },
   {
+    title: 'Learn',
+    link: '/learn'
+  },
+  {
     title: 'Pricing',
     link: '/#pricing'
   },

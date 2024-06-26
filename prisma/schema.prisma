@@ -14,32 +14,33 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole  @default(USER)
-  accounts      Account[]
-  createdAt     DateTime  @default(now())
-  subscriptions UserSubscription[]
-  purchases     Purchase[]
+  id                  String                @id @default(cuid())
+  name                String?
+  email               String?               @unique
+  emailVerified       DateTime?
+  image               String?
+  password            String?
+  role                UserRole              @default(USER)
+  accounts            Account[]
+  createdAt           DateTime              @default(now())
+  subscriptions       UserSubscription[]
+  purchases           Purchase[]
+  UserFlashcardResult UserFlashcardResult[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -56,39 +57,81 @@ model VerificationToken {
 }
 
 model PasswordResetToken {
-  id       String   @id @default(cuid())
-  email    String
-  token    String   @unique
-  expires  DateTime
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
   @@unique([email, token])
 }
 
 model UserSubscription {
-  id                        String   @id @default(uuid())
-  userId                    String   @unique
-  stripeCustomerId          String?  @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId      String?  @unique @map(name: "stripe_subscription_id")
-  stripePriceId             String?  @unique @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd    DateTime? @unique @map(name: "stripe_current_period_end")
-  user                      User     @relation(fields: [userId], references: [id])
+  id                     String    @id @default(uuid())
+  userId                 String    @unique
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @unique @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @unique @map(name: "stripe_current_period_end")
+  user                   User      @relation(fields: [userId], references: [id])
 }
 
 model Purchase {
-  id         String   @id @default(uuid())
-  userId     String
-  amount     Float
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt()
+  id        String   @id @default(uuid())
+  userId    String
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
 
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model StripeCustomer {
-  id               String   @id @default(uuid())
-  userId           String   @unique
-  stripeCustomerId String   @unique
+  id               String @id @default(uuid())
+  userId           String @unique
+  stripeCustomerId String @unique
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt()
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model Subject {
+  id          String    @id @default(uuid())
+  name        String
+  value       String
+  description String
+  chapters    Chapter[]
+}
+
+model Chapter {
+  id        String      @id @default(uuid())
+  name      String
+  subjectId String
+  Subject   Subject     @relation(fields: [subjectId], references: [id])
+  Flashcard Flashcard[]
+}
+
+model Flashcard {
+  id        String                @id @default(uuid())
+  question  String
+  hint      String
+  answer    String
+  chapterId String
+  Chapter   Chapter               @relation(fields: [chapterId], references: [id])
+  results   UserFlashcardResult[]
+}
+
+model UserFlashcardResult {
+  id          String    @id @default(uuid())
+  userId      String
+  flashcardId String
+  result      Result
+  User        User      @relation(fields: [userId], references: [id])
+  Flashcard   Flashcard @relation(fields: [flashcardId], references: [id])
+}
+
+enum Result {
+  VERY_DIFFICULT
+  DIFFICULT
+  GOOD
+  VERY_GOOD
 }
