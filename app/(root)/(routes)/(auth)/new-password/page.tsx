@@ -12,7 +12,7 @@ export default function NewVerificationForm() {
   const [hasErrorToastShown, setHasErrorToastShown] = useState<boolean>(false)
 
   const searchParams = useSearchParams()
-  const token = searchParams.get('token')
+  const token = searchParams?.get('token')
   const router = useRouter()
 
   const onSubmit = useCallback(() => {
