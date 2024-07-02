@@ -1,6 +1,8 @@
-import React from 'react';
-import { db } from '@/lib/db'
-import Link from 'next/link'
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 interface Chapter {
   id: string;
@@ -19,8 +21,51 @@ interface LearnDetailsProps {
   params: { subjectId: string };
 }
 
-const LearnDetails: React.FC<LearnDetailsProps> = async ({ params }) => {
-  const { subject, chapters } = await fetchSubjectAndChapters(params.subjectId);
+export default function LearnDetails({ params }: LearnDetailsProps) {
+  const user = useCurrentUser();
+  const [subject, setSubject] = useState<Subject | null>(null);
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (user) {
+        try {
+          const response = await fetch(`/api/subject/${params.subjectId}`, {
+            headers: {
+              'X-User-Email': user?.email || ''
+            }
+          });
+          if (!response.ok) {
+            throw new Error('Failed to fetch data');
+          }
+          const data = await response.json();
+          setSubject(data.subject);
+          setChapters(data.chapters);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [user, params.subjectId]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <div>Please sign in to view this page.</div>;
+  }
+
+  if (!subject || chapters.length === 0) {
+    return <div>No data available.</div>;
+  }
 
   return (
     <div className="p-4 max-w-4xl mx-auto">
@@ -63,38 +108,5 @@ const LearnDetails: React.FC<LearnDetailsProps> = async ({ params }) => {
         ))}
       </div>
     </div>
-  )
+  );
 }
-
-async function fetchSubjectAndChapters(subjectId: string): Promise<{ subject: Subject, chapters: Chapter[] }> {
-  const subject = await db.subject.findUnique({
-    where: { id: subjectId }
-  })
-  if (!subject) {
-    throw new Error('Subject not found')
-  }
-
-  const chapters = await db.chapter.findMany({
-    where: { subjectId: subjectId },
-    include: {
-      Flashcard: {
-        include: {
-          results: true
-        }
-      }
-    }
-  })
-  if (!chapters) {
-    throw new Error('Chapters not found')
-  }
-
-  const chaptersWithStats = chapters.map(chapter => ({
-    ...chapter,
-    totalFlashcards: chapter.Flashcard.length,
-    answeredFlashcards: chapter.Flashcard.filter(flashcard => flashcard.results.length > 0).length,
-  }));
-
-  return { subject, chapters: chaptersWithStats };
-}
-
-export default LearnDetails;
