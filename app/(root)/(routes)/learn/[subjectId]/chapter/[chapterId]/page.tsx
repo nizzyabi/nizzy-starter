@@ -6,7 +6,7 @@ import Flashcards from '@/app/(root)/(routes)/learn/_components/flashcards'
 
 
 
-export default async function FlashcardsPage({params,}: { params:{ chapterId:string };}) {
+export default async function FlashcardsPage({params,}: { params:{ chapterId:string, subjectId:string };}) {
   const session = await auth();
 
   if (!session || !session.user || !session.user.id) {
@@ -17,7 +17,7 @@ export default async function FlashcardsPage({params,}: { params:{ chapterId:str
 
   return (
     <div>
-      <Flashcards flashcards={flashcards} userId={session.user.id} />
+      <Flashcards flashcards={flashcards} userId={session.user.id} subjectId={params.subjectId}/>
     </div>
   );
 }

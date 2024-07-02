@@ -2,6 +2,7 @@ import { Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from './ui/button'
+import React from 'react'
 
 export const Header = () => {
   return (
@@ -21,6 +22,12 @@ export const Header = () => {
                 <span>Get Started</span>
               </Button>
             </Link>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700 relative">
+            <div className="absolute top-0 left-0 bg-red-600 h-2.5 rounded-full" style={{ width: '100%' }}></div>
+            <div className="absolute top-0 left-0 bg-yellow-400 h-2.5 rounded-full" style={{ width: '75%' }}></div>
+            <div className="absolute top-0 left-0 bg-green-500 h-2.5 rounded-full" style={{ width: '50%' }}></div>
+            <div className="absolute top-0 left-0 bg-blue-600 h-2.5 rounded-full" style={{ width: '25%' }}></div>
           </div>
         </div>
       </div>

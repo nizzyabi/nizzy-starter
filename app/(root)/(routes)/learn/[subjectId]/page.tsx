@@ -4,12 +4,27 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useCurrentUser } from '@/hooks/use-current-user';
 
+enum Result {
+  VERY_DIFFICULT = 'VERY_DIFFICULT',
+  DIFFICULT = 'DIFFICULT',
+  GOOD = 'GOOD',
+  VERY_GOOD = 'VERY_GOOD'
+}
+
+interface ResultCounts {
+  [Result.VERY_DIFFICULT]: number;
+  [Result.DIFFICULT]: number;
+  [Result.GOOD]: number;
+  [Result.VERY_GOOD]: number;
+}
+
 interface Chapter {
   id: string;
   name: string;
   subjectId: string;
   totalFlashcards: number;
   answeredFlashcards: number;
+  resultCounts: ResultCounts;
 }
 
 interface Subject {
@@ -21,7 +36,39 @@ interface LearnDetailsProps {
   params: { subjectId: string };
 }
 
-export default function LearnDetails({ params }: LearnDetailsProps) {
+interface ProgressBarProps {
+  resultCounts: ResultCounts;
+  totalAnswered: number;
+}
+
+function ProgressBar({ resultCounts, totalAnswered }: ProgressBarProps): JSX.Element {
+  const getWidth = (count: number): string => {
+    return totalAnswered > 0 ? `${(count / totalAnswered) * 100}%` : '0%';
+  };
+
+  let accumulatedWidth = 0;
+
+  const renderBar = (result: Result, color: string): JSX.Element => {
+    const width = getWidth(resultCounts[result]);
+    const style = {
+      width: width,
+      left: `${accumulatedWidth}%`
+    };
+    accumulatedWidth += (resultCounts[result] / totalAnswered) * 100;
+    return <div className={`absolute top-0 h-2.5 rounded-full ${color}`} style={style}></div>;
+  };
+
+  return (
+    <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700 relative">
+      {renderBar(Result.VERY_DIFFICULT, 'bg-red-600')}
+      {renderBar(Result.DIFFICULT, 'bg-yellow-400')}
+      {renderBar(Result.GOOD, 'bg-blue-600')}
+      {renderBar(Result.VERY_GOOD, 'bg-green-500')}
+    </div>
+  );
+}
+
+export default function LearnDetails({ params }: LearnDetailsProps): JSX.Element {
   const user = useCurrentUser();
   const [subject, setSubject] = useState<Subject | null>(null);
   const [chapters, setChapters] = useState<Chapter[]>([]);
@@ -78,21 +125,18 @@ export default function LearnDetails({ params }: LearnDetailsProps) {
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{chapter.name}</h5>
             <div className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               <p>Total cards: {chapter.totalFlashcards}</p>
-              <p>Answered: {chapter.answeredFlashcards}</p>
+              <p>Answered: {Object.values(chapter.resultCounts).reduce((a, b) => a + b, 0)}</p>
               <p>Progress: {
                 chapter.totalFlashcards > 0
                   ? ((chapter.answeredFlashcards / chapter.totalFlashcards) * 100).toFixed(2)
                   : '0'
               }%</p>
-              <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                <div
-                  className="bg-green-600 h-2.5 rounded-full dark:bg-green-500"
-                  style={{
-                    width: chapter.totalFlashcards > 0
-                      ? `${(chapter.answeredFlashcards / chapter.totalFlashcards) * 100}%`
-                      : '0%'
-                  }}
-                ></div>
+              <ProgressBar resultCounts={chapter.resultCounts} totalAnswered={chapter.answeredFlashcards} />
+              <div className="text-xs mt-1">
+                <span className="text-red-600">Very Difficult: {chapter.resultCounts[Result.VERY_DIFFICULT]}</span> |
+                <span className="text-yellow-400"> Difficult: {chapter.resultCounts[Result.DIFFICULT]}</span> |
+                <span className="text-blue-600"> Good: {chapter.resultCounts[Result.GOOD]}</span> |
+                <span className="text-green-500"> Very Good: {chapter.resultCounts[Result.VERY_GOOD]}</span>
               </div>
             </div>
             <Link href={`/learn/${chapter.subjectId}/chapter/${chapter.id}`}

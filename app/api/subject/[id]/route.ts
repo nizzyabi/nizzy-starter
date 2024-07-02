@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
-import { useCurrentUser } from '@/hooks/use-current-user'
 
 export async function GET(
   request: Request,
@@ -28,13 +27,23 @@ export async function GET(
     }
   });
 
-  const chaptersWithStats = chapters.map(chapter => ({
-    ...chapter,
-    totalFlashcards: chapter.Flashcard.length,
-    answeredFlashcards: userId
-      ? chapter.Flashcard.filter(flashcard => flashcard.results.length > 0).length
-      : 0,
-  }));
+  const chaptersWithStats = chapters.map(chapter => {
+    const flashcardResults = chapter.Flashcard.flatMap(flashcard => flashcard.results);
+    const totalAnswered = flashcardResults.length;
+    const resultCounts = {
+      VERY_DIFFICULT: flashcardResults.filter(r => r.result === 'VERY_DIFFICULT').length,
+      DIFFICULT: flashcardResults.filter(r => r.result === 'DIFFICULT').length,
+      GOOD: flashcardResults.filter(r => r.result === 'GOOD').length,
+      VERY_GOOD: flashcardResults.filter(r => r.result === 'VERY_GOOD').length,
+    };
+
+    return {
+      ...chapter,
+      totalFlashcards: chapter.Flashcard.length,
+      answeredFlashcards: totalAnswered,
+      resultCounts: resultCounts,
+    };
+  });
 
   return NextResponse.json({ subject, chapters: chaptersWithStats })
 }
