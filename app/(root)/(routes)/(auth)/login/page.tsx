@@ -23,9 +23,9 @@ import toast from 'react-hot-toast'
 export default function Page() {
   const searchParams = useSearchParams()
   const urlError =
-    searchParams.get('error') === 'OAuthAccountNotLinked'
+    searchParams?.get('error') === 'OAuthAccountNotLinked'
       ? 'Email already in use with different provider!'
-      : ''
+      : '';
 
   const [isPending, startTransition] = useTransition()
   const hasDisplayedError = useRef(false)
