@@ -1,8 +1,8 @@
 import React from 'react';
 import fetchFlashcards from '@/lib/fetchFlashcards'
-import Flashcards from '@/app/learn/_components/flashcards'
 import { auth } from '@/auth'
 import { Flashcard } from '@prisma/client'
+import Flashcards from '@/app/(root)/(routes)/learn/_components/flashcards'
 
 
 

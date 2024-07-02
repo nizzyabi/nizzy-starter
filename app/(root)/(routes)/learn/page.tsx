@@ -1,6 +1,8 @@
-import Subject from '@/app/learn/_components/subject'
+'use client';
 
-export default async function LearnPage() {
+import SubjectList from '@/app/(root)/(routes)/learn/_components/subjectList'
+
+export default function LearnPage() {
 
   return (
     <div className="space-y-20 mt-32">
@@ -11,7 +13,7 @@ export default async function LearnPage() {
           </p>
         </div>
       </div>
-      <Subject/>
+      <SubjectList/>
     </div>
   )
 }

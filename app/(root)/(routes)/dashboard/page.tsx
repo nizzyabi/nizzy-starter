@@ -26,7 +26,8 @@ import GoalDataCard from './_components/goal'
 import LineGraph from './_components/line-graph'
 import BarChart from './_components/barchart'
 import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
+import NotFound from '@/app/not-found'
+import React from 'react'
 
 export default async function DashboardPage() {
   // create an account and make your role an admin in the prisma studio so you can access the dashboard and no one else.
@@ -35,7 +36,7 @@ export default async function DashboardPage() {
     const role = await auth();
 
     if (role?.user.role === 'USER' || !role) {
-        return redirect('/')
+        return <NotFound />
     }
   }
 

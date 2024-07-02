@@ -57,16 +57,16 @@ const Flashcards: React.FC<FlashcardsProps> = ({ flashcards, userId }) => {
   };
 
   if (flashcards.length === 0) {
-    return <div>No flashcards available.</div>;
+    return <div>Nie znaleziony żadnych kart</div>;
   }
 
   const { question, hint, answer } = flashcards[currentIndex];
 
   return (
     <div className="p-4 bg-white shadow-md rounded-lg w-full max-w-md mx-auto mt-10">
-      <h1 className="font-bold text-2xl mb-4">Flashcards</h1>
+      <h1 className="font-bold text-2xl mb-4">Karta</h1>
       <div className="mb-4">
-        <p className="text-lg font-medium">Question:</p>
+        <p className="text-lg font-medium">Pytanie:</p>
         <p className="text-gray-700">{question}</p>
       </div>
       {!showHint && (
@@ -74,12 +74,12 @@ const Flashcards: React.FC<FlashcardsProps> = ({ flashcards, userId }) => {
           onClick={() => setShowHint(true)}
           className="mb-4 flex items-center bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600"
         >
-          <FaLightbulb className="mr-2" /> Show Hint
+          <FaLightbulb className="mr-2" /> Pokaż podpowiedz
         </button>
       )}
       {showHint && (
         <div className="mb-4">
-          <p className="text-lg font-medium">Hint:</p>
+          <p className="text-lg font-medium">Podpowiedz:</p>
           <p className="text-gray-700">{hint}</p>
         </div>
       )}
@@ -88,18 +88,18 @@ const Flashcards: React.FC<FlashcardsProps> = ({ flashcards, userId }) => {
           onClick={() => setShowAnswer(true)}
           className="mb-4 flex items-center bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
         >
-          <FaCheck className="mr-2" /> Show Answer
+          <FaCheck className="mr-2" /> Pokaż odpowiedz
         </button>
       )}
       {showAnswer && (
         <div className="mb-4">
-          <p className="text-lg font-medium">Answer:</p>
+          <p className="text-lg font-medium">Odpowiedz:</p>
           <p className="text-gray-700">{answer}</p>
         </div>
       )}
       {showAnswer && (
         <div className="mb-4">
-          <p className="text-lg font-medium">How well did you know this?</p>
+          <p className="text-lg font-medium">Jak dobrze znasz odpowiedź?</p>
           <div className="flex justify-between mt-2">
             {Object.values(Result).map((result) => (
               <button
@@ -107,7 +107,7 @@ const Flashcards: React.FC<FlashcardsProps> = ({ flashcards, userId }) => {
                 onClick={() => handleResultClick(result)}
                 className="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 text-sm"
               >
-                {result.replace('_', ' ')}
+                {resultTranslations[result] || result.replace('_', ' ')}
               </button>
             ))}
           </div>
@@ -116,15 +116,11 @@ const Flashcards: React.FC<FlashcardsProps> = ({ flashcards, userId }) => {
       <div className="flex justify-between">
         <button
           onClick={handlePrev}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-        >
-          Previous
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Poprzednie
         </button>
         <button
           onClick={handleNext}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-        >
-          Next
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Następne
         </button>
       </div>
     </div>
@@ -132,3 +128,10 @@ const Flashcards: React.FC<FlashcardsProps> = ({ flashcards, userId }) => {
 };
 
 export default Flashcards;
+
+const resultTranslations = {
+  VERY_GOOD: 'Bardzo łatwe',
+  GOOD: 'Łatwe',
+  DIFFICULT: 'Trudne',
+  VERY_DIFFICULT: 'Bardzo trudne'
+};
