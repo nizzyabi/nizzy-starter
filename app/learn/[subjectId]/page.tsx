@@ -1,11 +1,7 @@
 import { db } from '@/lib/db'
 import Link from 'next/link'
 
-export default async function LearnDetails({
-                                             params,
-                                           }: {
-  params:{ subjectId:string };
-})   {
+export default async function LearnDetails({params,}: { params:{ subjectId:string };})   {
 
   const { subject, chapters } =
     await fetchSubjectAndChapters(params.subjectId);

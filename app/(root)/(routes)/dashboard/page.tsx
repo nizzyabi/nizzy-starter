@@ -32,11 +32,11 @@ export default async function DashboardPage() {
   // create an account and make your role an admin in the prisma studio so you can access the dashboard and no one else.
 
   {
-    /*const role = await auth();
+    const role = await auth();
 
     if (role?.user.role === 'USER' || !role) {
         return redirect('/')
-    }*/
+    }
   }
 
   const currentDate = new Date()

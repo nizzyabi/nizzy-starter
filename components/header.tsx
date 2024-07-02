@@ -23,14 +23,6 @@ export const Header = () => {
             </Link>
           </div>
         </div>
-        <div className="flex items-center justify-center rounded-lg overflow-hidden">
-          <iframe
-            src="https://www.youtube.com/embed/Q6jDdtbkMIU?si=YtgU89RhYiwt5-U5"
-            title="YouTube Video Player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            className="w-full max-w-2xl h-auto aspect-video"
-          ></iframe>
-        </div>
       </div>
     </div>
   )

@@ -8,11 +8,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum UserRole {
-  USER
-  ADMIN
-}
-
 model User {
   id                  String                @id @default(cuid())
   name                String?
@@ -21,11 +16,11 @@ model User {
   image               String?
   password            String?
   role                UserRole              @default(USER)
-  accounts            Account[]
   createdAt           DateTime              @default(now())
-  subscriptions       UserSubscription[]
+  accounts            Account[]
   purchases           Purchase[]
   UserFlashcardResult UserFlashcardResult[]
+  subscriptions       UserSubscription?
 }
 
 model Account {
@@ -34,15 +29,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -68,10 +62,10 @@ model PasswordResetToken {
 model UserSubscription {
   id                     String    @id @default(uuid())
   userId                 String    @unique
-  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-  stripePriceId          String?   @unique @map(name: "stripe_price_id")
-  stripeCurrentPeriodEnd DateTime? @unique @map(name: "stripe_current_period_end")
+  stripeCustomerId       String?   @unique @map("stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map("stripe_subscription_id")
+  stripePriceId          String?   @unique @map("stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @unique @map("stripe_current_period_end")
   user                   User      @relation(fields: [userId], references: [id])
 }
 
@@ -80,18 +74,16 @@ model Purchase {
   userId    String
   amount    Float
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model StripeCustomer {
-  id               String @id @default(uuid())
-  userId           String @unique
-  stripeCustomerId String @unique
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  stripeCustomerId String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Subject {
@@ -125,8 +117,15 @@ model UserFlashcardResult {
   userId      String
   flashcardId String
   result      Result
-  User        User      @relation(fields: [userId], references: [id])
   Flashcard   Flashcard @relation(fields: [flashcardId], references: [id])
+  User        User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, flashcardId])
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 enum Result {
