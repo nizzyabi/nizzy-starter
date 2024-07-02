@@ -3,6 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Chapter } from '@prisma/client';
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
 
 interface ChapterFormProps {
   chapter?: Chapter;
@@ -12,6 +14,11 @@ interface ChapterFormProps {
 
 export default function ChapterForm({ chapter, subjectId, onSubmit }: ChapterFormProps) {
   const [formData, setFormData] = useState({ name: '', subjectId: subjectId });
+  const user = useCurrentUser()
+
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
 
   useEffect(() => {
     if (chapter) {

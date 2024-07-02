@@ -2,14 +2,20 @@
 
 import React, { useState } from 'react';
 import { Flashcard } from '@prisma/client';
-import FlashcardList from '@/app/admin-dashboard/components/FlashcardList';
-import FlashcardForm from '@/app/admin-dashboard/components/FlashcardForm';
+import FlashcardList from '@/app/(root)/(routes)/management/components/FlashcardList'
+import FlashcardForm from '@/app/(root)/(routes)/management/components/FlashcardForm'
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
 
 export default function FlashcardManagement({ params }: { params: { id: string } }) {
   const [selectedFlashcard, setSelectedFlashcard] = useState<Flashcard | undefined>(undefined);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const user = useCurrentUser()
 
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
   const handleEdit = (flashcard: Flashcard) => {
     setSelectedFlashcard(flashcard);
     setIsFormVisible(true);

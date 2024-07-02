@@ -20,11 +20,6 @@ export const navPages = [
     role: 'ADMIN'
   },
   {
-    title: 'admin panel',
-    link: '/admin-dashboard',
-    role: 'ADMIN'
-  },
-  {
     title: 'Learn',
     link: '/learn'
   },

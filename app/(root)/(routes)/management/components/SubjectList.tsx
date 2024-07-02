@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Subject } from '@prisma/client';
 import Link from 'next/link'
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
 
 interface SubjectListProps {
   onEdit: (subject: Subject) => void;
@@ -9,13 +11,18 @@ interface SubjectListProps {
 
 export default function SubjectList({ onEdit, refreshTrigger }: SubjectListProps) {
   const [subjects, setSubjects] = useState<Subject[]>([]);
+  const user = useCurrentUser()
+
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
 
   useEffect(() => {
     fetchSubjects();
   }, [refreshTrigger]);
 
   const fetchSubjects = async () => {
-    const response = await fetch('/api/subjects');
+    const response = await fetch('/api/admin/subjects');
     const data = await response.json();
     setSubjects(data);
   };
@@ -40,7 +47,7 @@ export default function SubjectList({ onEdit, refreshTrigger }: SubjectListProps
             </button>
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
-            <Link href={`/admin-dashboard/chapter/${subject.id}`} className="text-green-600 hover:text-green-900">
+            <Link href={`/management/chapter/${subject.id}`} className="text-green-600 hover:text-green-900">
               Manage Chapters
             </Link>
           </td>

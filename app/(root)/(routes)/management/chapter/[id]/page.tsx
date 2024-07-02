@@ -2,13 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import { Chapter } from '@prisma/client';
-import ChapterList from '@/app/admin-dashboard/components/ChapterList';
-import ChapterForm from '@/app/admin-dashboard/components/ChapterForm';
+import ChapterList from '@/app/(root)/(routes)/management/components/ChapterList'
+import ChapterForm from '@/app/(root)/(routes)/management/components/ChapterForm'
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
+
 
 export default function ChapterManagement({ params }: { params: { id: string } }) {
   const [selectedChapter, setSelectedChapter] = useState<Chapter | undefined>(undefined);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const user = useCurrentUser()
+
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
 
   const handleEdit = (chapter: Chapter) => {
     setSelectedChapter(chapter);
@@ -27,7 +35,7 @@ export default function ChapterManagement({ params }: { params: { id: string } }
 
       if (selectedChapter) {
         // Update existing chapter
-        const response = await fetch(`/api/chapter/${selectedChapter.id}`, {
+        const response = await fetch(`/api/admin/chapter/${selectedChapter.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(dataToSend),
@@ -37,7 +45,7 @@ export default function ChapterManagement({ params }: { params: { id: string } }
         }
       } else {
         // Create new chapter
-        const response = await fetch('/api/chapter', {
+        const response = await fetch('/api/admin/chapter', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(dataToSend),

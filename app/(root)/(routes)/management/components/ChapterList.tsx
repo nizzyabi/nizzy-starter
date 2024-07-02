@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Chapter } from '@prisma/client';
 import Link from 'next/link';
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
 
 interface ChapterListProps {
   subjectId: string;
@@ -13,7 +15,10 @@ export default function ChapterList({ subjectId, onEdit, refreshTrigger }: Chapt
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const user = useCurrentUser()
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
   useEffect(() => {
     fetchChapters();
   }, [refreshTrigger, subjectId]);
@@ -22,7 +27,7 @@ export default function ChapterList({ subjectId, onEdit, refreshTrigger }: Chapt
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/chapter/${subjectId}`);
+      const response = await fetch(`/api/admin/chapter/${subjectId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch chapters');
       }
@@ -74,7 +79,7 @@ export default function ChapterList({ subjectId, onEdit, refreshTrigger }: Chapt
             </button>
           </td>
           <td className="px-6 py-4 whitespace-nowrap">
-            <Link href={`/admin-dashboard/flashcard/${chapter.id}`} className="text-green-600 hover:text-green-900">
+            <Link href={`/management/flashcard/${chapter.id}`} className="text-green-600 hover:text-green-900">
               Manage Flashcards
             </Link>
           </td>

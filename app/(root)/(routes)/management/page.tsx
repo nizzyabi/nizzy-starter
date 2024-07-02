@@ -1,27 +1,22 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Subject } from '@prisma/client';
-import SubjectList from '@/app/admin-dashboard/components/SubjectList'
-import SubjectForm from '@/app/admin-dashboard/components/SubjectForm'
-import { auth } from '@/auth'
-import { redirect } from 'next/navigation'
 import { useCurrentUser } from '@/hooks/use-current-user'
-import { router } from 'next/client'
+import SubjectList from '@/app/(root)/(routes)/management/components/SubjectList'
+import SubjectForm from '@/app/(root)/(routes)/management/components/SubjectForm'
+import NotFound from '@/app/not-found'
+
 
 export default function AdminDashboard() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | undefined>(undefined);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [activeTab, setActiveTab] = useState('subjects');
-  const { session } = useCurrentUser()
+  const user = useCurrentUser()
 
-  useEffect(() => {
-    if (session && session.role !== 'ADMIN') {
-      router.push('/')
-    }
-  },[session, router])
-
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
 
   const handleEdit = (subject: Subject) => {
     setSelectedSubject(subject);
@@ -37,7 +32,7 @@ export default function AdminDashboard() {
     try {
       if (selectedSubject) {
         // Update existing subject
-        const response = await fetch(`/api/subjects/${selectedSubject.id}`, {
+        const response = await fetch(`/api/admin/subjects/${selectedSubject.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(subjectData),
@@ -46,10 +41,10 @@ export default function AdminDashboard() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const updatedSubject = await response.json();
+        await response.json();
       } else {
         // Create new subject
-        await fetch('/api/subjects', {
+        await fetch('/api/admin/subjects', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(subjectData),

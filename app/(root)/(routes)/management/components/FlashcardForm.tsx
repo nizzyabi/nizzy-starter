@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Flashcard } from '@prisma/client';
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
 
 interface FlashcardFormProps {
   flashcard?: Flashcard;
@@ -10,11 +12,16 @@ interface FlashcardFormProps {
 }
 
 export default function FlashcardForm({ flashcard, onSubmit, chapterId }: FlashcardFormProps) {
-  const [formData, setFormData] = useState({ question: '', answer: '' });
+  const [formData, setFormData] = useState({ question: '', answer: '', hint: '' });
+  const user = useCurrentUser()
+
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
 
   useEffect(() => {
     if (flashcard) {
-      setFormData({ question: flashcard.question, answer: flashcard.answer });
+      setFormData({ question: flashcard.question, answer: flashcard.answer, hint: flashcard.hint });
     }
   }, [flashcard]);
 
@@ -36,16 +43,24 @@ export default function FlashcardForm({ flashcard, onSubmit, chapterId }: Flashc
         <div className="space-y-4">
           <div>
             <label htmlFor="question" className="block text-sm font-medium text-gray-700 mb-1">Question</label>
-            <input type="text" name="question" id="question" value={formData.question} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" />
+            <input type="text" name="question" id="question" value={formData.question} onChange={handleChange}
+                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" />
           </div>
           <div>
             <label htmlFor="answer" className="block text-sm font-medium text-gray-700 mb-1">Answer</label>
-            <textarea name="answer" id="answer" value={formData.answer} onChange={handleChange} rows={4} className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" />
+            <textarea name="answer" id="answer" value={formData.answer} onChange={handleChange} rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" />
+          </div>
+          <div>
+            <label htmlFor="hint" className="block text-sm font-medium text-gray-700 mb-1">Hint</label>
+            <textarea name="hint" id="hint" value={formData.hint} onChange={handleChange} rows={4}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" />
           </div>
         </div>
       </div>
       <div>
-        <button type="submit" className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+        <button type="submit"
+                className="w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
           {flashcard ? 'Update Flashcard' : 'Create Flashcard'}
         </button>
       </div>

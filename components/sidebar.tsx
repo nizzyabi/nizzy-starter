@@ -46,7 +46,7 @@ const socials = [
     title: 'Instagram'
   },
   {
-    link: 'https://discord.gg/nizar',
+    link: 'https://discord.gg/',
     title: 'Discord'
   }
 ]

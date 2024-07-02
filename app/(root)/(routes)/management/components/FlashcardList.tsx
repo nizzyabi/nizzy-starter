@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Flashcard } from '@prisma/client'
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
 
 interface FlashcardListProps {
   onEdit: (flashcard: Flashcard) => void;
@@ -11,7 +13,11 @@ export default function FlashcardList({ onEdit, refreshTrigger, chapterId }: Fla
   const [flashcards, setFlashcards] = useState<Flashcard[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const user = useCurrentUser()
 
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
   useEffect(() => {
     fetchFlashcards()
   }, [refreshTrigger, chapterId])
@@ -56,6 +62,7 @@ export default function FlashcardList({ onEdit, refreshTrigger, chapterId }: Fla
       <tr>
         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Question</th>
         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Answer</th>
+        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hint</th>
         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
       </tr>
       </thead>
@@ -67,6 +74,9 @@ export default function FlashcardList({ onEdit, refreshTrigger, chapterId }: Fla
           </td>
           <td className="px-6 py-4 max-w-xs">
             <div className="truncate" title={flashcard.answer}>{flashcard.answer}</div>
+          </td>
+          <td className="px-6 py-4 max-w-xs">
+            <div className="truncate" title={flashcard.hint}>{flashcard.hint}</div>
           </td>
           <td className="px-6 py-4">
             <button onClick={() => onEdit(flashcard)} className="text-indigo-600 hover:text-indigo-900">Edit</button>

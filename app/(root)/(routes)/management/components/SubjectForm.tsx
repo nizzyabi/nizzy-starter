@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Subject } from '@prisma/client';
+import { useCurrentUser } from '@/hooks/use-current-user'
+import NotFound from '@/app/not-found'
 
 interface SubjectFormProps {
   subject?: Subject;
@@ -10,7 +12,11 @@ interface SubjectFormProps {
 
 export default function SubjectForm({ subject, onSubmit }: SubjectFormProps) {
   const [formData, setFormData] = useState({ name: '', value: '', description: '' });
+  const user = useCurrentUser()
 
+  if (!user || user.role !== 'ADMIN') {
+    return <NotFound />
+  }
   useEffect(() => {
     if (subject) {
       setFormData({ name: subject.name, value: subject.value, description: subject.description });

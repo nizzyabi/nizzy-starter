@@ -4,7 +4,6 @@ import { db } from '@/lib/db'
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    console.log('Received data in API:', body); // Log otrzymanych danych
 
     if (!body.question || !body.answer || !body.chapterId) {
       console.log('Missing required fields:', { question: body.question, answer: body.answer, chapterId: body.chapterId });
@@ -20,10 +19,12 @@ export async function POST(request: Request) {
       },
     });
 
-    console.log('Created flashcard:', flashcard); // Log utworzonej fiszki
     return NextResponse.json(flashcard);
   } catch (error) {
-    console.error('Error in POST /api/flashcard:', error);
-    return NextResponse.json({ error: 'Failed to create flashcard', details: error.message }, { status: 500 });
+    console.error('Error in POST /api/admin/flashcard:', error);
+    // Check if error object has a property `message`
+    let err = error as Error;
+    const errorMessage = err.message ? err.message : 'No details provided';
+    return NextResponse.json({ error: 'Failed to create flashcard', details: errorMessage }, { status: 500 });
   }
 }
