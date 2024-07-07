@@ -10,8 +10,22 @@ import {
   Tooltip,
   Legend
 } from 'recharts'
+import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 import { light_theme } from '@/lib/theme-constant'
 import { CandlestickChart } from 'lucide-react'
+import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "primary",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "primary",
+  },
+} satisfies ChartConfig
 
 export type BarChartProps = {
   data: { month: string; total: number }[]
@@ -26,7 +40,7 @@ export default function BarChart({ data }: BarChartProps) {
         <p>Sales Data</p>
         <CandlestickChart className="h-4 w-4" />
       </section>
-      <ResponsiveContainer width={'100%'} height={350}>
+      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarGraph
           data={data}
           margin={{ top: 20, left: -10, right: 10, bottom: 0 }}
@@ -44,6 +58,7 @@ export default function BarChart({ data }: BarChartProps) {
             fontSize={13}
             padding={{ left: 0, right: 0 }}
           />
+          <ChartTooltip  content={<ChartTooltipContent />} />
           <YAxis
             tickLine={false}
             axisLine={true}
@@ -62,7 +77,7 @@ export default function BarChart({ data }: BarChartProps) {
             fill="hsl(var(--primary))"
           />
         </BarGraph>
-      </ResponsiveContainer>
+      </ChartContainer>
     </div>
   )
 }

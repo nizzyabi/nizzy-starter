@@ -9,7 +9,7 @@ export type GoalDataProps = {
 export default function GoalDataCard(props: GoalDataProps) {
   return (
     <div className="rounded-lg p-5 bg-secondary dark:bg-secondary/50">
-      <section className="flex justify-between gap-2 text-primary pb-2">
+      <section className="flex justify-between gap-2 text-black dark:text-white pb-2">
         <p>Goal Progress</p>
         <Target className="h-4 w-4" />
       </section>

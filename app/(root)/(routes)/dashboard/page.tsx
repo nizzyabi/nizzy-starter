@@ -181,7 +181,7 @@ export default async function DashboardPage() {
         {/* User Data and Purchase Data Cards */}
         <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-primary">
           <DashboardCardContent>
-            <section className="flex justify-between gap-2 text-primary pb-2">
+            <section className="flex justify-between gap-2 text-black dark:text-white pb-2">
               <p>Recent Users</p>
               <UserRoundCheck className="h-4 w-4" />
             </section>
@@ -196,7 +196,7 @@ export default async function DashboardPage() {
             ))}
           </DashboardCardContent>
           <DashboardCardContent>
-            <section className="flex justify-between gap-2 text-primary pb-2">
+            <section className="flex justify-between gap-2 text-black dark:text-white pb-2">
               <p>Recent Sales</p>
               <CreditCard className="h-4 w-4" />
             </section>
@@ -213,7 +213,7 @@ export default async function DashboardPage() {
           </DashboardCardContent>
         </section>
 
-        <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-primary">
+        <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-black dark:text-white">
           <LineGraph data={monthlyUserData} />
           <BarChart data={monthlySalesData} />
         </section>
