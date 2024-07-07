@@ -1,4 +1,6 @@
 import { Resend } from "resend"
+import RepoEmail from "@/components/email/email";
+import { render } from "@react-email/render"
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,7 +12,7 @@ export async function POST (request: Request, res: Response) {
         from: "Nizzy <noreply@nizzystarter.com>",
         to: [email],
         subject: "Nizzy Starter Kit",
-        text: "<p> Your starter kit is here </p>",
+        html: render(RepoEmail()),
     })
 
     if (error) {
@@ -19,7 +21,7 @@ export async function POST (request: Request, res: Response) {
 
     resend.contacts.create({
         email: email,
-        audienceId: process.env.RESEND_AUDIENCE
+        audienced: process.env.RESEND_AUDIENCE
     })
 
     return Response.json({ message: "Email sent successfully" })

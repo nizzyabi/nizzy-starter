@@ -28,7 +28,7 @@ export function AlertDemo() {
     setError("");
     const email = e.target.email.value;
     try {
-      const response = await fetch('/api/mail', {
+      const response = await fetch('/api/emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ export function AlertDemo() {
         setEmail(""); 
         setError('Go here')
       } else {
-        console.error(data); // Handle error response
+        console.error(data, 'ha'); // Handle error response
       }
     } catch (error) {
       console.error('Error:', error);
