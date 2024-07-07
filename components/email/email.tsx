@@ -5,11 +5,12 @@ import {
     Head,
     Hr,
     Html,
-    Img,
     Preview,
     Section,
     Text,
   } from "@react-email/components";
+  import { Img } from "@react-email/img";
+
   import * as React from "react";
   
 
@@ -26,13 +27,7 @@ import {
       </Preview>
       <Body style={main}>
         <Container style={container}>
-          <Img
-            src={`${baseUrl}/logo.png`}
-            width="170"
-            height="50"
-            alt="Nizzy"
-            style={logo}
-          />
+          
           <Text style={paragraph}>Hey!!</Text>
           <Text style={paragraph}>
             Welcome to the Nizzy Starter Kit!! The free (and better) SaaS Starter Kit.
