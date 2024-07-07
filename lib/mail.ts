@@ -19,7 +19,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 
   resend.contacts.create({
     email: email,
-    audienceId: process.env.RESEND_AUDIENCE
+    audienceId: process.env.RESEND_AUDIENCE as string
   })
 }
 // Send password reset token to user
