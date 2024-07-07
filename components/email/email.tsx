@@ -9,7 +9,7 @@ import {
     Section,
     Text,
   } from "@react-email/components";
-  import { Img } from "@react-email/img";
+
 
   import * as React from "react";
   
