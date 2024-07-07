@@ -21,7 +21,7 @@ export async function POST (request: Request, res: Response) {
 
     resend.contacts.create({
         email: email,
-        audienceId: process.env.RESEND_AUDIENCE
+        audienceId: process.env.RESEND_AUDIENCE as string
     })
 
     return Response.json({ message: "Email sent successfully" })
