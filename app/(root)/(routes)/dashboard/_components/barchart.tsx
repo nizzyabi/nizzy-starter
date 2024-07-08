@@ -18,11 +18,11 @@ import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 const chartConfig = {
   desktop: {
     label: "Desktop",
-    color: "primary",
+    color: "hsl(var(--primary))",
   },
   mobile: {
     label: "Mobile",
-    color: "primary",
+    color: "hsl(var(--primary))",
   },
 } satisfies ChartConfig
 
@@ -39,16 +39,14 @@ export default function BarChart({ data }: BarChartProps) {
         <p>Sales Data</p>
         <CandlestickChart className="h-4 w-4" />
       </section>
-      <ChartContainer config={chartConfig} className="">
-        <ResponsiveContainer width="100%" height={300}>
+      <ChartContainer config={chartConfig} >
+        <ResponsiveContainer width="100%" height={500}>
           <BarGraph
             data={data}
             margin={{ top: 20, left: -10, right: 10, bottom: 0 }}
           >
             <CartesianGrid
-              strokeDasharray="2 2"
-              stroke={`${theme === light_theme ? '#000' : '#fff'}`}
-              className="opacity-25"
+              vertical={false}
             />
             <XAxis
               dataKey={'month'}
@@ -68,7 +66,7 @@ export default function BarChart({ data }: BarChartProps) {
               allowDecimals={false}
               tickFormatter={(value) => `$${value}`}
             />
-            <Legend />
+            
             <Bar
               dataKey={'total'}
               radius={[5, 5, 0, 0]}
