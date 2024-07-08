@@ -79,7 +79,7 @@ export default async function DashboardPage() {
   const userData: UserDataProps[] = recentUsers.map((account) => ({
     name: account.name || 'Unknown',
     email: account.email || 'No email',
-    image: account.image || '/mesh.jpeg',
+    image: account.image || '/mesh.avif',
     time: formatDistanceToNow(new Date(account.createdAt), { addSuffix: true })
   }))
 
@@ -98,7 +98,7 @@ export default async function DashboardPage() {
     (purchase) => ({
       name: purchase.user?.name || 'Unknown',
       email: purchase.user?.email || 'No email',
-      image: purchase.user?.image || '/mesh.jpeg',
+      image: purchase.user?.image || '/mesh.avif',
       saleAmount: `+$${(purchase.amount || 0).toFixed(2)}`
     })
   )

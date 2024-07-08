@@ -84,7 +84,7 @@ export const UserButton = () => {
             {/* User Avatar / Logo */}
             <Avatar className="cursor-pointer">
               <AvatarImage src={session.image ? session.image : ''} alt="pfp" />
-              <AvatarFallback className="bg-gradient-to-r from-red-500 to-orange-500"></AvatarFallback>
+              <AvatarFallback className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700"></AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           {/* Content */}
