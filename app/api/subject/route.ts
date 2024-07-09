@@ -6,7 +6,10 @@ export async function GET() {
     const subjects = await db.subject.findMany();
     return NextResponse.json(subjects, {
       headers: {
-        'Cache-Control': 'no-store, max-age=0',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Surrogate-Control': 'no-store',
       },
     });
   } catch (error) {
