@@ -5,9 +5,11 @@
 @layer base {
   :root {
     /* Adjust these to change the theme color */
-    --primary: 208 87% 53%;
+    --primary-hue: 234;
+    --primary-saturation: 88%;
+    --primary-lightness: 74%;
+    --primary: var(--primary-hue) var(--primary-saturation) var(--primary-lightness);
     --primary-foreground: 0 0% 0%;
-
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
