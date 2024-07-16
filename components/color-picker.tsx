@@ -42,12 +42,12 @@ export default function ColorPicker() {
   }
 
   return (
-    <div className="w-fit p-2 rounded-xl bg-white">
+    <div className="w-fit">
       <HslColorPicker
         color={color}
         onChange={handleColorChange}
-        onDragStart={handlePickerDrag}
-        onDragEnd={handlePickerDragEnd}
+        onMouseEnter={handlePickerDrag}
+        onMouseLeave={handlePickerDragEnd}
       />
     </div>
   )

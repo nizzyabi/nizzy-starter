@@ -64,6 +64,6 @@ main {
   flex: 1 0 0;
 }
 
-.disable-transitions {
+.disable-transitions * {
   transition: none !important;
 }
