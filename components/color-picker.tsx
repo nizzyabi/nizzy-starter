@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { HslColorPicker, HslColor } from 'react-colorful'
 import { CodeBlock } from 'react-code-block'
+import { themes } from 'prism-react-renderer'
 import { useCopyToClipboard } from 'react-use'
 
 interface HslColorType {
@@ -84,9 +85,10 @@ export function ColorPicker({ variable }: ColorPickerProps) {
       <CodeBlock
         code={`${variable}: ${color.h} ${color.s}% ${color.l}%;`}
         language="css"
+        theme={themes.oneDark}
       >
         <div className="relative">
-          <CodeBlock.Code className="bg-foreground/[0.025] p-4 rounded-lg shadow-lg break-words whitespace-pre-wrap">
+          <CodeBlock.Code className="bg-foreground/[0.025] border p-4 rounded-lg shadow-lg break-words whitespace-pre-wrap">
             <span className="flex items-center text-sm text-foreground/70 h-6 mb-1">
               globals.css
             </span>
@@ -95,7 +97,7 @@ export function ColorPicker({ variable }: ColorPickerProps) {
             </CodeBlock.LineContent>
           </CodeBlock.Code>
           <button
-            className="bg-accent rounded px-3.5 py-1.5 absolute top-2 right-2 text-sm font-semibold"
+            className="bg-foreground/5 border rounded px-3.5 py-1.5 absolute top-2 right-2 text-sm font-semibold"
             onClick={copyCode}
           >
             {state.value ? 'Copied!' : 'Copy'}
