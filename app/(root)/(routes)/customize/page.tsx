@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Slider } from '@/components/ui/slider'
 import { TriangleAlert } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import {
   BarChartMixed,
   BarChartMultiple,
@@ -26,19 +26,13 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
+import { Label } from '@/components/ui/label'
+import { toast } from 'react-hot-toast'
 
 export default function () {
-  const [range, setRange] = useState<DateRange | undefined>()
   const [progress, setProgress] = useState(0)
+  const [email, setEmail] = useState('')
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,6 +44,30 @@ export default function () {
 
     return () => clearInterval(interval)
   }, [])
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    const email = e.target.email.value
+    try {
+      const response = await fetch('/api/emails', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      })
+      const data = await response.json()
+
+      if (data.message) {
+        toast.success(data.message)
+        setEmail('')
+      } else {
+        console.error(data, 'ha')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
   return (
     <main className="w-full max-w-6xl flex flex-col gap-16 p-6">
@@ -88,25 +106,39 @@ export default function () {
             <Progress value={progress} />
             <Card className="w-full bg-transparent relative">
               <CardHeader>
-                <CardTitle>Newsletter</CardTitle>
+                <CardTitle>Get the Starter Kit</CardTitle>
                 <CardDescription>
-                  Showcase purposes, doesn't actually work.
+                  Receive the Starter Kit for free in your mailbox.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <form>
+              <form onSubmit={handleSubmit}>
+                <CardContent>
                   <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col space-y-1.5">
                       <Label htmlFor="name">Email</Label>
-                      <Input id="name" placeholder="example@gmail.com" />
+                      <Input
+                        name="email"
+                        id="email"
+                        type="email"
+                        placeholder="example@gmail.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
                     </div>
                   </div>
-                </form>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="outline">Cancel</Button>
-                <Button>Deploy</Button>
-              </CardFooter>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setEmail('')}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit">Continue</Button>
+                </CardFooter>
+              </form>
             </Card>
           </div>
         </div>
