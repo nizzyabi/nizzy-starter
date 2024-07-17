@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* Adjust these to change the theme's color */
-    --primary: 208 87% 53%;
+    --primary: 234 88% 74%;
     --primary-foreground: 0 0% 0%;
 
     /* Adjust these to change the chart's colors */
