@@ -8,7 +8,7 @@ export default function NotFound() {
         <div className="text-6xl">
           <span>Error</span> <span className="text-primary font-bold">404</span>
         </div>
-        <span className="text-4xl">Page not found!</span>
+        <span className="text-4xl">Page not found!!!</span>
       </div>
     </main>
   )

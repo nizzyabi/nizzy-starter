@@ -16,19 +16,17 @@ import {
   startOfMonth,
   endOfMonth,
   eachMonthOfInterval,
-  format,
-  subMonths
+  format
 } from 'date-fns'
 import UserDataCard, { UserDataProps } from './_components/user-data-card'
 import UserPurchaseDataCard, {
   UserPurchaseDataProps
 } from './_components/user-purchase-data'
 import GoalDataCard from './_components/goal'
-import UserChart from './_components/user-chart'
+import LineGraph from './_components/line-graph'
 import BarChart from './_components/barchart'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
-import SalesChart from './_components/sales-chart'
 
 export default async function DashboardPage() {
   // create an account and make your role an admin in the prisma studio so you can access the dashboard and no one else.
@@ -81,7 +79,7 @@ export default async function DashboardPage() {
   const userData: UserDataProps[] = recentUsers.map((account) => ({
     name: account.name || 'Unknown',
     email: account.email || 'No email',
-    image: account.image || '/mesh.jpeg',
+    image: account.image || '/mesh.avif',
     time: formatDistanceToNow(new Date(account.createdAt), { addSuffix: true })
   }))
 
@@ -100,17 +98,10 @@ export default async function DashboardPage() {
     (purchase) => ({
       name: purchase.user?.name || 'Unknown',
       email: purchase.user?.email || 'No email',
-      image: purchase.user?.image || '/mesh.jpeg',
+      image: purchase.user?.image || '/mesh.avif',
       saleAmount: `+$${(purchase.amount || 0).toFixed(2)}`
     })
   )
-
-  const startDate = startOfMonth(subMonths(currentDate, 5))
-
-  const monthsInterval = eachMonthOfInterval({
-    start: startDate,
-    end: endOfMonth(currentDate)
-  })
 
   // Calculate users joined per month
   const usersByMonth = await db.user.groupBy({
@@ -118,20 +109,15 @@ export default async function DashboardPage() {
     _count: {
       createdAt: true
     },
-    where: {
-      createdAt: {
-        gte: startDate,
-        lte: currentDate
-      }
-    },
     orderBy: {
       createdAt: 'asc'
     }
   })
 
-  // console.log(usersByMonth)
-
-  const monthlyUserData = monthsInterval.map((month) => {
+  const monthlyUserData = eachMonthOfInterval({
+    start: startOfMonth(new Date(usersByMonth[0]?.createdAt || new Date())),
+    end: endOfMonth(currentDate)
+  }).map((month) => {
     const monthString = format(month, 'MMM')
     const usersInMonth = usersByMonth
       .filter((user) => format(new Date(user.createdAt), 'MMM') === monthString)
@@ -145,22 +131,19 @@ export default async function DashboardPage() {
     _sum: {
       amount: true
     },
-    where: {
-      createdAt: {
-        gte: startDate,
-        lte: currentDate
-      }
-    },
     orderBy: {
       createdAt: 'asc'
     }
   })
 
-  const monthlySalesData = monthsInterval.map((month) => {
+  const monthlySalesData = eachMonthOfInterval({
+    start: startOfMonth(new Date(salesByMonth[0]?.createdAt || new Date())),
+    end: endOfMonth(currentDate)
+  }).map((month) => {
     const monthString = format(month, 'MMM')
     const salesInMonth = salesByMonth
       .filter((sale) => format(new Date(sale.createdAt), 'MMM') === monthString)
-      .reduce((total, sale) => total + (sale._sum?.amount || 0), 0)
+      .reduce((total, sale) => total + sale._sum.amount!, 0)
     return { month: monthString, total: salesInMonth }
   })
 
@@ -198,7 +181,7 @@ export default async function DashboardPage() {
         {/* User Data and Purchase Data Cards */}
         <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-primary">
           <DashboardCardContent>
-            <section className="flex justify-between gap-2 text-primary pb-2">
+            <section className="flex justify-between gap-2 text-black dark:text-white pb-2">
               <p>Recent Users</p>
               <UserRoundCheck className="h-4 w-4" />
             </section>
@@ -213,7 +196,7 @@ export default async function DashboardPage() {
             ))}
           </DashboardCardContent>
           <DashboardCardContent>
-            <section className="flex justify-between gap-2 text-primary pb-2">
+            <section className="flex justify-between gap-2 text-black dark:text-white pb-2">
               <p>Recent Sales</p>
               <CreditCard className="h-4 w-4" />
             </section>
@@ -230,9 +213,9 @@ export default async function DashboardPage() {
           </DashboardCardContent>
         </section>
 
-        <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-primary">
-          <UserChart data={monthlyUserData} />
-          <SalesChart data={monthlySalesData} />
+        <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-black dark:text-white">
+          <LineGraph data={monthlyUserData} />
+          <BarChart data={monthlySalesData} />
         </section>
 
         <GoalDataCard goal={goalAmount} value={progressValue} />

@@ -6,7 +6,7 @@ export type UserDataProps = {
 }
 
 export default function UserDataCard(props: UserDataProps) {
-  const defaultImage = '/mesh.jpeg'
+  const defaultImage = '/mesh.avif'
   return (
     <section className="flex justify-between gap-2 text-foreground">
       <div className="flex gap-3 h-12 w-12 rounded-full bg-secondary/30">

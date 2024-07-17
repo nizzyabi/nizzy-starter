@@ -16,7 +16,7 @@ export const DashboardCard = ({
   return (
     <div className="bg-secondary dark:bg-secondary/50 shadow flex w-full flex-col gap-3 rounded-lg p-5">
       {/* Label & Icon */}
-      <section className="flex justify-between gap-2 text-primary">
+      <section className="flex justify-between gap-2 text-black dark:text-white">
         <p className="text-sm">{label}</p>
         <Icon className="h-4 w-4" />
       </section>

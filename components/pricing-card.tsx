@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { useCurrentUser } from '@/hooks/use-current-user'
+import { useRouter } from 'next/navigation'
 
 // Update Tiers Here
 export const tiers = [
@@ -51,9 +52,12 @@ export const PricingCard = () => {
   const [isLoading, setIsLoading] = useState(false)
   const session = useCurrentUser()
 
+  const router = useRouter();
+
   const onClick = async () => {
     if (!session) {
-      toast.error('Sign in to purchase!')
+      toast('👇 Sign in to purchase!')
+      router.push('/login')
       return
     }
     try {

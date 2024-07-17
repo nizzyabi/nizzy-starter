@@ -1,7 +1,42 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { Sparkles } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from './ui/button'
+import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+
+const IframeWithSkeleton = () => {
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+
+  useEffect(() => {
+    const iframe = document.getElementById('youtube-iframe') as HTMLIFrameElement;
+    if (iframe) {
+      const handleIframeLoad = () => {
+        setIframeLoaded(true);
+      };
+
+      iframe.addEventListener('load', handleIframeLoad);
+
+      return () => {
+        iframe.removeEventListener('load', handleIframeLoad);
+      };
+    }
+  }, []);
+
+  return (
+    <>
+      {!iframeLoaded && <Skeleton className="w-full max-w-2xl h-auto aspect-video" />}
+      <iframe
+        id="youtube-iframe"
+        src="https://www.youtube.com/embed/Q6jDdtbkMIU?si=YtgU89RhYiwt5-U5"
+        title="YouTube Video Player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        className={`w-full max-w-2xl h-auto aspect-video rounded-[6px] ${iframeLoaded ? '' : 'hidden'}`}
+      ></iframe>
+    </>
+  );
+};
 
 export const Header = () => {
   return (
@@ -24,12 +59,7 @@ export const Header = () => {
           </div>
         </div>
         <div className="flex items-center justify-center rounded-lg overflow-hidden">
-          <iframe
-            src="https://www.youtube.com/embed/Q6jDdtbkMIU?si=YtgU89RhYiwt5-U5"
-            title="YouTube Video Player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            className="w-full max-w-2xl h-auto aspect-video"
-          ></iframe>
+          <IframeWithSkeleton />
         </div>
       </div>
     </div>
