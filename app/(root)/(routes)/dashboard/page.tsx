@@ -16,17 +16,19 @@ import {
   startOfMonth,
   endOfMonth,
   eachMonthOfInterval,
-  format
+  format,
+  subMonths
 } from 'date-fns'
 import UserDataCard, { UserDataProps } from './_components/user-data-card'
 import UserPurchaseDataCard, {
   UserPurchaseDataProps
 } from './_components/user-purchase-data'
 import GoalDataCard from './_components/goal'
-import LineGraph from './_components/line-graph'
+import UserChart from './_components/user-chart'
 import BarChart from './_components/barchart'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
+import SalesChart from './_components/sales-chart'
 
 export default async function DashboardPage() {
   // create an account and make your role an admin in the prisma studio so you can access the dashboard and no one else.
@@ -103,21 +105,33 @@ export default async function DashboardPage() {
     })
   )
 
+  const startDate = startOfMonth(subMonths(currentDate, 5))
+
+  const monthsInterval = eachMonthOfInterval({
+    start: startDate,
+    end: endOfMonth(currentDate)
+  })
+
   // Calculate users joined per month
   const usersByMonth = await db.user.groupBy({
     by: ['createdAt'],
     _count: {
       createdAt: true
     },
+    where: {
+      createdAt: {
+        gte: startDate,
+        lte: currentDate
+      }
+    },
     orderBy: {
       createdAt: 'asc'
     }
   })
 
-  const monthlyUserData = eachMonthOfInterval({
-    start: startOfMonth(new Date(usersByMonth[0]?.createdAt || new Date())),
-    end: endOfMonth(currentDate)
-  }).map((month) => {
+  // console.log(usersByMonth)
+
+  const monthlyUserData = monthsInterval.map((month) => {
     const monthString = format(month, 'MMM')
     const usersInMonth = usersByMonth
       .filter((user) => format(new Date(user.createdAt), 'MMM') === monthString)
@@ -131,19 +145,22 @@ export default async function DashboardPage() {
     _sum: {
       amount: true
     },
+    where: {
+      createdAt: {
+        gte: startDate,
+        lte: currentDate
+      }
+    },
     orderBy: {
       createdAt: 'asc'
     }
   })
 
-  const monthlySalesData = eachMonthOfInterval({
-    start: startOfMonth(new Date(salesByMonth[0]?.createdAt || new Date())),
-    end: endOfMonth(currentDate)
-  }).map((month) => {
+  const monthlySalesData = monthsInterval.map((month) => {
     const monthString = format(month, 'MMM')
     const salesInMonth = salesByMonth
       .filter((sale) => format(new Date(sale.createdAt), 'MMM') === monthString)
-      .reduce((total, sale) => total + sale._sum.amount!, 0)
+      .reduce((total, sale) => total + (sale._sum?.amount || 0), 0)
     return { month: monthString, total: salesInMonth }
   })
 
@@ -214,8 +231,8 @@ export default async function DashboardPage() {
         </section>
 
         <section className="grid grid-cols-1 gap-6 transition-all lg:grid-cols-2 text-primary">
-          <LineGraph data={monthlyUserData} />
-          <BarChart data={monthlySalesData} />
+          <UserChart data={monthlyUserData} />
+          <SalesChart data={monthlySalesData} />
         </section>
 
         <GoalDataCard goal={goalAmount} value={progressValue} />

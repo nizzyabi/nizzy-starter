@@ -8,7 +8,16 @@
     --primary: 208 87% 53%;
     --primary-foreground: 0 0% 0%;
 
+    --radius: 0.5rem;
+
+    --chart-1: 208 87% 53%;
+    --chart-2: 301 56% 56%;
+    --chart-3: 99 55% 51%;
+    --chart-4: 56 70% 54%;
+    --chart-5: 0 60% 57%;
+
     --background: 0 0% 100%;
+    --background-hover: 0 0% 95%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -25,11 +34,11 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
   }
 
   .dark {
     --background: 0 0% 7%;
+    --background-hover: 0 0% 13%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -46,6 +55,10 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+  }
+
+  * {
+    @apply border-border;
   }
 }
 

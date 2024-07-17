@@ -1,4 +1,4 @@
-import ColorPicker from '@/components/color-picker'
+import { ColorPickerButton } from '@/components/color-picker'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Language } from '@/components/languages'
@@ -9,7 +9,6 @@ export default function Home() {
   return (
     <>
       <main className="w-full max-w-6xl px-6 space-y-40">
-        <ColorPicker />
         <Header />
         <Language />
         <PricingCard />

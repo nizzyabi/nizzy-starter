@@ -7,7 +7,6 @@ import { ToastProvider } from '@/components/providers/toaster-provider'
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/auth'
 import { AlertDemo } from '@/components/alert'
-import { Footer } from '@/components/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
