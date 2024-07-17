@@ -1,4 +1,4 @@
-import { ColorPickerButton } from '@/components/color-picker'
+
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Language } from '@/components/languages'
