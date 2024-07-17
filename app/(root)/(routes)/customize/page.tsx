@@ -43,25 +43,26 @@ export default function () {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
-        const newProgress = (prevProgress + 0.5) % 101
+        const newProgress = (prevProgress + 10) % 101
         return newProgress
       })
-    }, 100)
+    }, 1000)
 
     return () => clearInterval(interval)
   }, [])
 
   return (
     <main className="w-full max-w-6xl flex flex-col gap-16 p-6">
-      <div className="flex gap-2 rounded-lg bg-yellow-300/50 border-2 border-yellow-500/75 p-4 text-foreground">
-        <TriangleAlert />
-        We do not check contrast or readability with the colors you select.
-      </div>
-      <div className="w-fit mx-auto text-base text-foreground/70">
-        If you refresh the page, it will reset the colors.
+      <div className="flex flex-col sm:flex-row w-fit mx-auto md:max-w-md gap-2 rounded-lg bg-yellow-300/50 border-2 border-yellow-500/75 p-4 text-foreground">
+        <TriangleAlert className="w-8 h-8 sm:w-6 sm:h-6 mx-auto sm:mx-0" />
+        <span className="w-fit">
+          If you refresh the page, it will reset the colors. Update{' '}
+          <code className="rounded-lg p-1 bg-foreground/10">globals.css</code>{' '}
+          with your new colors.
+        </span>
       </div>
       <div className="flex flex-col w-fit mx-auto max-w-xs xs:max-w-xl lg:max-w-full lg:mx-0 lg:flex-row lg:w-full justify-between gap-8">
-        <div className="flex flex-col xs:flex-row w-fit xs:w-full mx-auto sm:mx-0 gap-8">
+        <div className="grid grid-cols-1 xs:grid-cols-2 w-fit xs:w-full mx-auto sm:mx-0 gap-8">
           <div className="w-min sm:w-max flex flex-col items-center mx-auto gap-2 text-lg md:text-xl sm:whitespace-nowrap">
             <span>Primary color</span>
             <ColorPicker variable="--primary" />
@@ -111,7 +112,7 @@ export default function () {
         </div>
       </div>
       <div className="flex flex-col w-fit mx-auto max-w-xs xs:max-w-xl lg:max-w-full lg:mx-0 lg:flex-row lg:w-full justify-between gap-8">
-        <div className="flex flex-col xs:flex-row w-fit xs:w-full mx-auto sm:mx-0 gap-8">
+        <div className="grid grid-cols-1 xs:grid-cols-2 w-fit xs:w-full mx-auto sm:mx-0 gap-8">
           <div className="w-min flex flex-col items-center mx-auto gap-2 text-lg md:text-xl sm:whitespace-nowrap">
             <span>Chart Color 1</span>
             <ColorPicker variable="--chart-1" />
@@ -128,14 +129,14 @@ export default function () {
             <span>Chart Color 4</span>
             <ColorPicker variable="--chart-4" />
           </div>
-          <div className="w-min flex flex-col items-center mx-auto gap-2 text-lg md:text-xl sm:whitespace-nowrap">
+          <div className="w-min col-span-2 flex flex-col items-center mx-auto gap-2 text-lg md:text-xl sm:whitespace-nowrap">
             <span>Chart Color 5</span>
             <ColorPicker variable="--chart-5" />
           </div>
         </div>
         <div className="w-full h-fit flex flex-col gap-6 text-lg md:text-xl sm:whitespace-nowrap">
           <span>Charts</span>
-          <div className="flex flex-wrap max-w-[250px] xs:max-w-xs mx-auto sm:max-w-full justify-center items-center sm:justify-start w-full h-fit gap-6">
+          <div className="flex flex-wrap max-w-[250px] xs:max-w-full mx-auto justify-center items-center sm:justify-start w-full h-fit gap-6">
             <BarChartMultiple />
             <BarChartMixed />
             <LineChartMultiple />

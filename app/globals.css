@@ -4,12 +4,11 @@
 
 @layer base {
   :root {
-    /* Adjust these to change the theme color */
+    /* Adjust these to change the theme's color */
     --primary: 208 87% 53%;
     --primary-foreground: 0 0% 0%;
 
-    --radius: 0.5rem;
-
+    /* Adjust these to change the chart's colors */
     --chart-1: 208 87% 53%;
     --chart-2: 301 56% 56%;
     --chart-3: 99 55% 51%;
@@ -34,6 +33,7 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -78,5 +78,6 @@ main {
 }
 
 .disable-transitions * {
-  transition: none !important;
+  transition-property: background-color, color !important;
+  transition-duration: 0s !important;
 }

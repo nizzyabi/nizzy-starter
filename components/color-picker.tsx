@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { HslColorPicker, HslColor } from 'react-colorful'
 import { CodeBlock } from 'react-code-block'
 import { useCopyToClipboard } from 'react-use'
@@ -16,6 +16,8 @@ interface ColorPickerProps {
 
 export function ColorPicker({ variable }: ColorPickerProps) {
   const [color, setColor] = useState<HslColorType>({ h: 0, s: 100, l: 50 })
+  const mainDivRef = useRef<HTMLDivElement>(null)
+  const [isDragging, setIsDragging] = useState(false)
 
   useEffect(() => {
     const rootStyles = getComputedStyle(document.documentElement)
@@ -37,13 +39,32 @@ export function ColorPicker({ variable }: ColorPickerProps) {
     document.documentElement.style.setProperty(variable, fixedColor)
   }
 
-  const handlePickerDrag = () => {
-    document.documentElement.classList.add('disable-transitions')
+  const handleMouseDown = (event: MouseEvent) => {
+    if (
+      mainDivRef.current &&
+      mainDivRef.current.contains(event.target as Node)
+    ) {
+      setIsDragging(true)
+      document.documentElement.classList.add('disable-transitions')
+    }
   }
 
-  const handlePickerDragEnd = () => {
-    document.documentElement.classList.remove('disable-transitions')
+  const handleMouseUp = () => {
+    if (isDragging) {
+      setIsDragging(false)
+      document.documentElement.classList.remove('disable-transitions')
+    }
   }
+
+  useEffect(() => {
+    window.addEventListener('mousedown', handleMouseDown)
+    window.addEventListener('mouseup', handleMouseUp)
+
+    return () => {
+      window.removeEventListener('mousedown', handleMouseDown)
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [isDragging])
 
   const [state, copyToClipboard] = useCopyToClipboard()
 
@@ -55,13 +76,11 @@ export function ColorPicker({ variable }: ColorPickerProps) {
   }
 
   return (
-    <div className="flex flex-col items-center sm:items-start w-min space-y-4">
-      <HslColorPicker
-        color={color}
-        onChange={handleColorChange}
-        onMouseDown={handlePickerDrag}
-        onMouseUp={handlePickerDragEnd}
-      />
+    <div
+      ref={mainDivRef}
+      className="flex flex-col items-center sm:items-start w-min space-y-4"
+    >
+      <HslColorPicker color={color} onChange={handleColorChange} />
       <CodeBlock
         code={`${variable}: ${color.h} ${color.s}% ${color.l}%;`}
         language="css"
