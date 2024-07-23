@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body {
+    @apply bg-background;
+  }
+
   :root {
     /* Adjust these to change the theme's color */
     --primary: 234 88% 74%;
@@ -37,7 +42,7 @@
   }
 
   .dark {
-    --background:  249 11% 12%;
+    --background: 249 11% 12%;
     --background-hover: 0 0% 13%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
