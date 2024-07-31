@@ -77,7 +77,7 @@ On the root folder of your project, create a file called `.env` or `.env.local` 
 
 ```env
 DATABASE_URL=""
-DIRECT_URL=""
+DATABASE_URL_UNPOOLED=""
 APP_URL="http://localhost:3000"
 AUTH_SECRET=""
 GITHUB_CLIENT_ID=""
@@ -95,15 +95,14 @@ You are not required to use quotes your variables, although its recommended beca
 
 You can use any database of your choice, i like to use [Neon](https://neon.tech/). You can watch [this video](https://youtu.be/ZAjOep8-M-Y?si=L94KHhlbV27y-V_O) if you want help related to database configuration.
 
-If you already have a database prepared and know how to use it, you can just get the Database URL and Direct URL.
+If you already have a database prepared and know how to use it, you can just get the Database URL and the Database URL Unpooled.
 
 Example:
 
 ```env
 DATABASE_URL="postgresql://username:password@hostname:port/database_name"
-DIRECT_URL="postgresql://username:password@hostname:port/database_name"
+DATABASE_URL_UNPOOLED="postgresql://username:password@hostname:port/database_name"
 ```
-
 #### App URL
 
 Change this value when deploying your application.
@@ -111,7 +110,7 @@ Change this value when deploying your application.
 Example:
 
 ```env
-APP_URL="https://example.com/"
+APP_URL="https://example.com/" or "http://localhost:3000/"
 ```
 
 #### Auth Secret
@@ -190,7 +189,7 @@ STRIPE_WEBHOOK_SECRET="whsec_1234567890abcdef1234567890abcdef"
 
 ```env
 DATABASE_URL="postgresql://username:password@hostname:port/database_name"
-DIRECT_URL="https://api.example.com/endpoint"
+DATABASE_URL_UNPOOLED="postgresql://username:password@hostname:port/database_name"
 APP_URL="https://example.com/"
 AUTH_SECRET="bae23fc1c21a41743058c56a366459a2"
 GITHUB_CLIENT_ID="abc123def456ghi789jkl"
